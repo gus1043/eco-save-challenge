@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const nunjucks = require('nunjucks');
+const ejs = require('ejs');
 
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
@@ -12,10 +12,7 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-nunjucks.configure('views', {
-    express: app,
-    watch: true,
-});
+
 sequelize
     .sync({ force: false })
     .then(() => {
