@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+        <link rel="stylesheet" href="./page.css" />
+    </head>
+    <body>
+        <header><%- include('./header'); %></header>
+
+        <h2><%= title %></h2>
+
+        <img src="images/logo.png" />
+
+        <div class="container">
+            <div class="child">
+                <form id="form" action="/admit" method="post">
+                    <label>UserName</label>
+                    <input type="text" name="login" /><br />
+                    <label>Password</label>
+                    <input type="password" name="password" />
+                    <p>
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

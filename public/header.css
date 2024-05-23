@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Work+Sans:wght@500;700&display=swap');
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #979797;
+}
+
+.nav {
+    width: 75%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Work Sans', sans-serif;
+    margin: 0px 15px;
+    font-size: 30px;
+    font-weight: 700;
+    color: black;
+    text-decoration: none;
+}
+
+.nav_ul {
+    padding: 0px 5px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav_li {
+    margin: 0px 10px;
+}
+
+.nav_link {
+    text-decoration: none;
+    color: #979797;
+    font-size: 17px;
+    font-weight: 600;
+}
