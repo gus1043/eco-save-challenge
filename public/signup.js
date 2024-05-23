@@ -1,6 +1,21 @@
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 //getLocation으로 받은 위경도를 지도로 띄우기
-function getAddr(lat, lng) {
+async function getAddr(lat, lng) {
     console.log('위도:', lat, '경도:', lng);
+    const apiKey = process.env.GOOGLE_API_KEY; // .env 파일에서 API 키를 가져옵니다.
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    try {
+        const response = await axios.get(url);
+        if (response.data.results.length > 0) {
+            const address = response.data.results[0].formatted_address;
+            console.log('주소:', address);
+        } else {
+            console.log('주소를 찾을 수 없습니다.');
+        }
+    } catch (error) {
+        console.error('주소를 가져오는 데 실패했습니다:', error);
+    }
 }
 
 //geolocation으로 위 경도 받아오기

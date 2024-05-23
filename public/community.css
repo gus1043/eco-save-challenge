@@ -8,7 +8,9 @@ html {
 
 .container {
     display: flex;
-    width: 100%;
+    width: 75%;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
     height: calc(100vh - 100px); /* 헤더와 푸터의 높이를 고려한 값으로 조정 */
 }
 

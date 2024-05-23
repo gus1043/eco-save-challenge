@@ -1,14 +1,34 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
+const nunjucks = require('nunjucks');
+
+const { sequelize } = require('./models');
+const indexRouter = require('./routes');
+const wikisRouter = require('./routes/wikis');
 
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+nunjucks.configure('views', {
+    express: app,
+    watch: true,
+});
+sequelize
+    .sync({ force: false })
+    .then(() => {
+        console.log('데이터베이스 연결 성공');
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
+app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // 라우터 등록
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
@@ -29,6 +49,8 @@ app.get('/signup', (req, res) => {
 app.get('/community', (req, res) => {
     res.render('community', { title: 'Community' });
 });
+app.use('/', indexRouter);
+app.use('/wikis', wikisRouter);
 
 //404 에러처리 미들웨어
 app.use((req, res, next) => {
