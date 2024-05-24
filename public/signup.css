@@ -30,7 +30,7 @@ body {
 }
 
 .wrapper {
-    width: 750px;
+    width: 800px;
     max-width: 100%;
     background: var(--white);
     margin: 50px auto 0;
@@ -38,8 +38,19 @@ body {
     border-radius: 5px;
 }
 
+.wrapper .logo-container {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 25%;
+    height: 25%;
+    /* 다른 스타일들 */
+}
+
 .wrapper .header {
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: center;
 }
@@ -49,8 +60,12 @@ body {
 }
 
 .wrapper .header ul li {
-    margin-right: 50px;
+    /* 동그라미 위치 */
+    margin-right: 200px;
     position: relative;
+}
+p {
+    font-size: 10px;
 }
 
 .wrapper .header ul li:last-child {
@@ -60,10 +75,11 @@ body {
 .wrapper .header ul li:before {
     content: '';
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 40%;
+    transform: translateY(-40%);
     left: 55px;
-    width: 100%;
+    /* 선 길이 */
+    width: 350%;
     height: 2px;
     background: var(--secondary);
 }
@@ -85,6 +101,10 @@ body {
     text-align: center;
     line-height: 50px;
     border-radius: 50%;
+}
+
+.wrapper .header ul li span {
+    font-size: 12px;
 }
 
 .wrapper .header ul li.active:before {
@@ -131,6 +151,16 @@ body {
     transition: 0.5s ease;
 }
 
+.wrapper .form_wrap .input_wrap select {
+    border: 2px solid var(--secondary); /* 변수가 정의되어 있지 않으면 기본 값(#ccc) 사용 */
+    border-radius: 3px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    transition: border-color 0.5s ease;
+}
+
 .wrapper .form_wrap .input_wrap .input:focus {
     border-color: var(--primary);
 }
@@ -147,22 +177,19 @@ body {
 }
 
 .wrapper .btns_wrap .common_btns.form_1_btns {
-    justify-content: flex-end;
+    justify-content: center;
 }
-
 .wrapper .btns_wrap .common_btns button {
     border: 0;
     padding: 12px 15px;
     background: var(--primary);
     color: var(--white);
     width: 135px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
     font-size: 16px;
     border-radius: 3px;
     transition: 0.5s ease;
     cursor: pointer;
+    text-align: center; /* 버튼 텍스트를 가운데 정렬 */
 }
 
 .wrapper .btns_wrap .common_btns button.btn_back {
@@ -246,7 +273,100 @@ body {
 .modal_wrapper.active .success_wrap {
     transform: translate(-50%, -50%);
 }
+/* #map {
+    height: 300px; 
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.form_1.data_info {
+    text-align: center; /* 가로 방향 가운데 정렬 */
+}
+.form_2.data_info {
+    text-align: center; /* 가로 방향 가운데 정렬 */
+}
+
+.form_3.data_info {
+    text-align: center; /* 가로 방향 가운데 정렬 */
+}
+.agree-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+.agree {
+    width: 600px;
+    height: 300px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    overflow-y: scroll;
+    font-size: medium;
+    text-align: start;
+    padding: 5px;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d;
+}
+
 #map {
-    height: 400px; /* The height is 400 pixels */
-    width: 100%; /* The width is the width of the web page */
+    display: inline-block; /* 블록 요소를 인라인 레벨로 변환하여 가운데 정렬 */
+    height: 300px;
+    width: 80%;
+}
+
+/* 검색 */
+form {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+.pseudo-search {
+    display: inline;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 10px 15px;
+    transition: background-color 0.5 ease-in-out;
+
+    input {
+        border: 0;
+        background-color: transparent;
+        width: 400px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    button,
+    i {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    select {
+        border: none;
+    }
 }
