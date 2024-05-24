@@ -13,6 +13,11 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <script
+            src="http://maps.google.com/maps/api/js?key=<%= process.env.GOOGLE_MAP_KEY %>&callback=getLocation"
+            async
+            defer
+        ></script>
     </head>
     <body>
         <div class="wrapper">
@@ -39,22 +44,7 @@
             <div class="form_wrap">
                 <div class="form_1 data_info">
                     <h2>1. 동네 절약 챌린지를 위해 위치를 등록해주세요</h2>
-                    <form>
-                        <div class="form_container">
-                            <div class="input_wrap">
-                                <label for="email">Email Address</label>
-                                <input type="text" name="Email Address" class="input" id="email" />
-                            </div>
-                            <div class="input_wrap">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" class="input" id="password" />
-                            </div>
-                            <div class="input_wrap">
-                                <label for="confirm_password">Confirm Password</label>
-                                <input type="password" name="confirm password" class="input" id="confirm_password" />
-                            </div>
-                        </div>
-                    </form>
+                    <div id="map"></div>
                 </div>
                 <div class="form_2 data_info" style="display: none">
                     <h2>2. AI 컨설턴트가 절약 플랜을 설계하도록 정보를 입력해주세요</h2>
