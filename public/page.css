@@ -1,21 +1,124 @@
-.container {
-    font-family: arial;
-    font-size: 24px;
-    margin: 25px;
-    width: 350px;
-    height: 200px;
-    outline: dashed 1px black;
-    /* 설정 */
-    position: relative;
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.child {
-    width: 50px;
-    height: 50px;
-    background-color: red;
-    /* 상하좌우 정중앙 정렬하기 */
+.logo {
+    width: 25%;
+    height: 25%;
+    /* 다른 스타일들 */
+}
+
+.container {
+    width: 100%;
+    width: 79%; /* 너비를 90%로 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    height: calc(100vh - 100px);
+}
+
+.wrapper .form_wrap .input_wrap .input {
+    border: 2px solid var(--secondary);
+    border-radius: 3px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    transition: 0.5s ease;
+}
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1rem;
+    width: 100%;
+    row-gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+@media (max-width: 700px) {
+    .tiles {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tile {
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: 0.25s ease;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--c-olive-500);
+    color: var(--c-gray-900);
+}
+
+.tile:hover {
+    transform: translateY(-5px);
+}
+
+.tile-header {
+    display: flex;
+    align-items: center;
+}
+
+.tile-header i {
+    font-size: 2.5em;
+}
+
+.tile-header h3 {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.375;
+    margin-left: 0.5rem;
+}
+
+.tile-header h3 span:first-child {
+    font-weight: 600;
+}
+
+.tile-header h3 span:last-child {
+    font-size: 0.825em;
+    font-weight: 200;
+}
+
+.single-tile {
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: 0.25s ease;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--c-olive-500);
+    color: var(--c-gray-900);
+}
+
+.single-tile:hover {
+    transform: translateY(-5px);
+}
+
+.single-tile:focus {
+    box-shadow: none;
+}
+
+.single-tile:after {
+    content: '';
+    display: block;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -25px 0 0 -25px; /* 자식 요소 전체를 중앙 정렬하기 위해, 상단 및 왼쪽 margin을 마이너스 값으로 적용하기 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

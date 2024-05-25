@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+        <link rel="stylesheet" href="./login.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="input-form">
+                <img class="logo" src="images/logo.png" />
+                <form id="form" method="post">
+                    <input type="text" name="name" placeholder="이름" /><br />
+                    <input type="text" name="email" placeholder="이메일 입력" /><br />
+                    <input type="password" name="password" placeholder="비밀번호 입력" /><br />
+                    <input type="password" name="passwordcheck" placeholder="비밀번호 확인" />
+                    <p>
+                        <button class="btn" type="submit">회원가입</button>
+                    </p>
+                </form>
+                <a href="/login"><u>로그인</u></a>
+            </div>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/signup.js"></script>
+
+        <!-- alert css 쓰기 위한 cdn 설치 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    </body>
+</html>

@@ -13,13 +13,9 @@ class User extends Sequelize.Model {
                     type: Sequelize.TEXT,
                     allowNull: false,
                 },
-                age: {
-                    type: Sequelize.INTEGER.UNSIGNED,
-                    allowNull: true,
-                },
-                address: {
+                name: {
                     type: Sequelize.TEXT,
-                    allowNull: true,
+                    allowNull: false,
                 },
             },
             {

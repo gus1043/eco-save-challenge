@@ -8,8 +8,16 @@ class Residence_info extends Sequelize.Model {
                     type: Sequelize.TEXT,
                     allowNull: true,
                 },
+                address: {
+                    type: Sequelize.TEXT,
+                    allowNull: true,
+                },
                 house_structure: {
                     type: Sequelize.TEXT,
+                    allowNull: true,
+                },
+                num_member: {
+                    type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: true,
                 },
                 electrical_appliance: {

@@ -2,16 +2,19 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const ejs = require('ejs');
+require('dotenv').config();
 
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const wikisRouter = require('./routes/wikis');
+const usersRouter = require('./routes/users');
 
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+const logo = { img: '/images/logo.png' };
 
 sequelize
     .sync({ force: false })
@@ -28,26 +31,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // 라우터 등록
 app.get('/', (req, res) => {
-    res.render('home', { title: 'Home' });
+    res.render('home', { title: 'Home', logo: logo });
 });
 app.get('/home', (req, res) => {
-    res.render('home', { title: 'Home' });
+    res.render('home', { title: 'Home', logo: logo });
 });
 app.get('/mypage', (req, res) => {
-    res.render('mypage', { title: 'MyPage' });
+    res.render('mypage', { title: 'MyPage', logo: logo });
 });
 app.get('/login', (req, res) => {
-    res.render('login', { title: 'Login' });
+    res.render('login', { title: 'Login', logo: logo });
 });
 app.get('/signup', (req, res) => {
-    res.render('signup', { title: 'Signup' });
+    res.render('signup', { title: 'Signup', logo: logo });
+});
+
+app.get('/residenceInfo', (req, res) => {
+    res.render('residenceInfo', { title: 'residenceInfo', logo: logo });
 });
 
 app.get('/community', (req, res) => {
-    res.render('community', { title: 'Community' });
+    res.render('community', { title: 'Community', logo: logo });
 });
+
 app.use('/', indexRouter);
 app.use('/wikis', wikisRouter);
+app.use('/users', usersRouter);
 
 //404 에러처리 미들웨어
 app.use((req, res, next) => {
