@@ -13,12 +13,6 @@ body {
     flex-direction: column;
 }
 
-.logo {
-    width: 25%;
-    height: 25%;
-    /* 다른 스타일들 */
-}
-
 .container {
     width: 100%;
     width: 79%; /* 너비를 90%로 설정 */
