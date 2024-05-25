@@ -3,18 +3,66 @@
     <head>
         <meta charset="utf-8" />
         <title><%= title %></title>
-        <link rel="stylesheet" href="./page.css" />
+        <link rel="stylesheet" href="./home.css" />
     </head>
 
     <body>
         <header><%- include('./header'); %></header>
-
-        <div>
-            <p>홈</p>
+        <div class="container">
+            <div class="service-section">
+                <div class="tiles">
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-lightning-light"></i>
+                            <h3 id="report-title">절약 리포트</h3>
+                        </div>
+                    </div>
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-fire-simple-light"></i>
+                            <h3>AI 절약 컨설팅</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-section">
+                <div class="tiles">
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-lightning-light"></i>
+                            <h3 id="report-title">절약 리포트</h3>
+                        </div>
+                    </div>
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-fire-simple-light"></i>
+                            <h3>AI 절약 컨설팅</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-section">
+                <div class="tiles">
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-lightning-light"></i>
+                            <h3 id="report-title">절약 리포트</h3>
+                        </div>
+                    </div>
+                    <div class="tile">
+                        <div class="tile-header">
+                            <i class="ph-fire-simple-light"></i>
+                            <h3>AI 절약 컨설팅</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer>
             <header><%- include('./footer'); %></header>
         </footer>
+
+        <script src="/home.js"></script>
     </body>
 </html>

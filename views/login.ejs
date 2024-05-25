@@ -4,26 +4,20 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><%= title %></title>
-        <link rel="stylesheet" href="./page.css" />
+        <link rel="stylesheet" href="./login.css" />
     </head>
     <body>
-        <header><%- include('./header'); %></header>
-
-        <h2><%= title %></h2>
-
-        <img src="images/logo.png" />
-
-        <div class="container">
-            <div class="child">
+        <div class="wrapper">
+            <div class="input-form">
+                <img class="logo" src="images/logo.png" />
                 <form id="form" action="/admit" method="post">
-                    <label>UserName</label>
-                    <input type="text" name="login" /><br />
-                    <label>Password</label>
-                    <input type="password" name="password" />
+                    <input type="text" name="login" placeholder="이메일 입력" /><br />
+                    <input type="password" name="password" placeholder="비밀번호 입력" />
                     <p>
-                        <button type="submit">Submit</button>
+                        <button class="btn" type="submit">로그인</button>
                     </p>
                 </form>
+                <a href="/signup"><u>회원가입</u></a>
             </div>
         </div>
     </body>
