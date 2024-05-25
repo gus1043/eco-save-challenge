@@ -1,24 +1,23 @@
 const Sequelize = require('sequelize');
 
-class User extends Sequelize.Model {
+class Residence_info extends Sequelize.Model {
     static initiate(sequelize) {
-        User.init(
+        Residence_info.init(
             {
-                email: {
-                    type: Sequelize.STRING(320),
-                    allowNull: false,
-                    unique: true,
-                },
-                password: {
+                address: {
                     type: Sequelize.TEXT,
-                    allowNull: false,
+                    allowNull: true,
                 },
-                age: {
+                house_structure: {
+                    type: Sequelize.TEXT,
+                    allowNull: true,
+                },
+                electrical_appliance: {
                     type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: true,
                 },
-                address: {
-                    type: Sequelize.TEXT,
+                age: {
+                    type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: true,
                 },
             },
@@ -26,8 +25,8 @@ class User extends Sequelize.Model {
                 sequelize,
                 timestamps: true,
                 underscored: false,
-                modelName: 'User',
-                tableName: 'users',
+                modelName: 'Residence_info',
+                tableName: 'residence_info',
                 paranoid: true,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
@@ -36,9 +35,8 @@ class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Residence_info, { foreignKey: 'user', sourceKey: 'email' });
-        db.User.hasMany(db.User_info, { foreignKey: 'user', sourceKey: 'email' });
+        db.Residence_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email' });
     }
 }
 
-module.exports = User;
+module.exports = Residence_info;
