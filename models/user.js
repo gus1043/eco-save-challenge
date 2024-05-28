@@ -17,6 +17,15 @@ class User extends Sequelize.Model {
                     type: Sequelize.TEXT,
                     allowNull: false,
                 },
+                provider: {
+                    type: Sequelize.STRING(10),
+                    allowNull: false,
+                    defaultValue: 'local',
+                },
+                snsID: {
+                    type: Sequelize.STRING(30),
+                    allowNull: true,
+                },
             },
             {
                 sequelize,
