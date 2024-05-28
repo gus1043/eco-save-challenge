@@ -13,15 +13,9 @@ body {
     flex-direction: column;
 }
 
-.logo {
-    width: 25%;
-    height: 25%;
-    /* 다른 스타일들 */
-}
-
 .container {
     width: 100%;
-    width: 79%; /* 너비를 90%로 설정 */
+    width: 75%;
     margin: 0 auto; /* 가운데 정렬 */
     height: calc(100vh - 115px);
 }
