@@ -26,9 +26,6 @@ class Wiki extends Sequelize.Model {
             }
         );
     }
-    static associate(db) {
-        db.Wiki.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email' });
-    }
 }
 
 module.exports = Wiki;
