@@ -89,6 +89,15 @@ body {
     font-weight: 200;
 }
 
+/* 첫번째 타일만 색 변경 */
+#mybill {
+    background-color: #19a337;
+}
+
+#mybill h3 {
+    color: white;
+}
+
 .single-tile {
     padding: 1rem;
     border-radius: 8px;
