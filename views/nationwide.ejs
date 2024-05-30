@@ -9,19 +9,28 @@
     <body>
         <header><%- include('./header'); %></header>
         <div class="container">
-            <h2 id="heading">월 챌린지</h2>
+            <div class="selectYear">
+                <h2>우리나라 지역별 전기료 사용 모니터링</h2>
+                <select name="year" id="year">
+                    <option id="last" value="last">작년</option>
+                    <option id="twoYear" value="twoYear">2년전</option>
+                    <option id="threeYear" value="threeYear">3년전</option>
+                    <option id="fourYear" value="fourYear">4년전</option>
+                </select>
+            </div>
+
             <div class="service-section">
                 <div class="tiles">
-                    <div class="tile" id="mybill">
+                    <div class="tile">
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
-                            <h3 id="report-title">나의 요금</h3>
+                            <h3 id="report-title">주택용 전력</h3>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <h3>일반(상업)용 전력</h3>
                         </div>
                     </div>
                 </div>
@@ -31,13 +40,13 @@
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
-                            <h3 id="report-title">절약 리포트</h3>
+                            <h3 id="report-title">교육용 전력</h3>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <h3>산업용 전력</h3>
                         </div>
                     </div>
                 </div>
@@ -47,13 +56,13 @@
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
-                            <h3 id="report-title">절약 리포트</h3>
+                            <h3 id="report-title">농사용 전력</h3>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <h3>가로등</h3>
                         </div>
                     </div>
                 </div>
@@ -64,6 +73,6 @@
             <header><%- include('./footer'); %></header>
         </footer>
 
-        <script src="/home.js"></script>
+        <script src="/nationwide.js"></script>
     </body>
 </html>
