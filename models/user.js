@@ -22,7 +22,7 @@ class User extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 'local',
                 },
-                snsID: {
+                snsId: {
                     type: Sequelize.STRING(30),
                     allowNull: true,
                 },
@@ -43,6 +43,7 @@ class User extends Sequelize.Model {
     static associate(db) {
         db.User.hasMany(db.Residence_info, { foreignKey: 'user', sourceKey: 'email' });
         db.User.hasMany(db.User_info, { foreignKey: 'user', sourceKey: 'email' });
+        db.User.hasMany(db.Wiki, { foreignKey: 'user', sourceKey: 'email' });
     }
 }
 

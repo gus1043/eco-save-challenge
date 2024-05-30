@@ -25,5 +25,6 @@ Wiki.initiate(sequelize);
 User.associate(db);
 User_info.associate(db);
 Residence_info.associate(db);
+Wiki.associate(db);
 
 module.exports = db;

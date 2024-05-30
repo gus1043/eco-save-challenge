@@ -16,14 +16,18 @@ class Wiki extends Sequelize.Model {
             },
             {
                 sequelize,
-                timestamps: false,
+                timestamps: true,
+                underscored: false,
                 modelName: 'Wiki',
                 tableName: 'wikis',
-                paranoid: false,
-                charset: 'utf8mb4',
-                collate: 'utf8mb4_general_ci',
+                paranoid: true,
+                charset: 'utf8',
+                collate: 'utf8_general_ci',
             }
         );
+    }
+    static associate(db) {
+        db.Wiki.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email' });
     }
 }
 
