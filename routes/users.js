@@ -2,20 +2,17 @@ const express = require('express');
 const User = require('../models/user');
 const User_info = require('../models/user_info');
 const Residence_info = require('../models/residence_info');
+const logo = { img: '..public/images/logo' };
 
 const router = express.Router();
 
+//회원가입
 router
     .route('/signup')
-    // .get(async (req, res, next) => {
-    //     try {
-    //         const users = await User.findAll();
-    //         res.json(users);
-    //     } catch (err) {
-    //         console.error(err);
-    //         next(err);
-    //     }
-    // })
+    .get((req, res) => {
+        res.render('signup', { title: '회원가입', logo: logo });
+    })
+
     .post(async (req, res, next) => {
         try {
             const { name, email, password } = req.body;
