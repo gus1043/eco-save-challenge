@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 router
     .route('/signup')
     .get(isNotLoggedIn, (req, res) => {
-        res.render('signup', { title: '회원가입' });
+        res.render('signup', { title: '회원가입', user: null });
     })
 
     .post(isNotLoggedIn, async (req, res, next) => {
@@ -45,7 +45,6 @@ router
             });
             console.log(user);
             res.status(201).json(user);
-            return res.redirect('/users/login');
         } catch (err) {
             console.error(err);
             return next(err);
@@ -56,7 +55,7 @@ router
 router
     .route('/login')
     .get(isNotLoggedIn, (req, res) => {
-        res.render('login', { title: '회원가입' });
+        res.render('login', { title: '로그인', user: null });
     })
     .post(isNotLoggedIn, (req, res, next) => {
         passport.authenticate('local', (authError, user, info) => {
@@ -71,13 +70,25 @@ router
             }
 
             console.info('___req.login()');
-            return req.login(user, (loginError) => {
+            return req.login(user, async (loginError) => {
                 if (loginError) {
                     console.error(loginError);
                     return next(loginError);
                 }
-                // 로그인 성공 후 상태 코드 200과 함께 성공 메시지 반환
-                return res.status(200).json({ message: 'Login successful' });
+
+                // 여기서 ResidenceInfoModel는 residence_info 테이블을 나타내는 모델입니다.
+                // user.id를 사용하여 residence_info를 조회합니다.
+                const residenceInfo = await Residence_info.findOne({ where: { user: user.email } });
+
+                // residence_info가 존재하고 address 컬럼이 있는지 확인합니다.
+                const address = residenceInfo ? residenceInfo.address : null;
+
+                // residence_info가 존재하면 해당 정보를 포함하여 응답을 반환합니다.
+                // 존재하지 않으면 null 또는 적절한 메시지를 반환합니다.
+                res.status(200).json({
+                    message: 'Login successful',
+                    residence_info: address ? address : 'No residence information found',
+                });
             });
         })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
     });
@@ -104,16 +115,27 @@ router.get(
         res.redirect('/');
     }
 );
-router.get('/:id/comments', async (req, res, next) => {
+
+// 유저 정보 세팅
+router.route('/residenceInfo').get(isLoggedIn, async (req, res, next) => {
     try {
-        const comments = await Comment.findAll({
-            include: {
-                model: User,
-                where: { id: req.params.id },
-            },
-        });
-        console.log(comments);
-        res.json(comments);
+        console.log(req.user);
+
+        // 사용자 정보를 렌더링
+        res.render('residenceInfo', { title: '유저 세팅' });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+// 마이페이지
+router.get('/mypage', isLoggedIn, async (req, res, next) => {
+    try {
+        console.log(req.user);
+
+        // 사용자 정보를 렌더링
+        res.render('mypage', { title: '마이페이지', user: req.user });
     } catch (err) {
         console.error(err);
         next(err);
