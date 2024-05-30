@@ -25,7 +25,7 @@ document.getElementById('form').addEventListener('submit', async (e) => {
                 confirmButtonColor: '#19A337',
                 confirmButtonText: '확인',
             });
-            window.location.href = '/login'; // 로그인 페이지로 이동
+            window.location.href = '/users/login'; // 로그인 페이지로 이동
         } else {
             // 서버에서 정의된 다른 상태 코드 처리
             await Swal.fire({
