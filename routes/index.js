@@ -7,11 +7,10 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     try {
         const users = await User.findAll();
-        res.render('sequelize', { users });
+        res.render('home', { title: '홈' });
     } catch (err) {
         console.error(err);
         next(err);
     }
-    res.render('home', { title: '홈' });
 });
 module.exports = router;
