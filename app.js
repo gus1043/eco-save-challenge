@@ -11,7 +11,7 @@ dotenv.config();
 
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
-const wikisRouter = require('./routes/wikis');
+const communityRouter = require('./routes/community');
 const usersRouter = require('./routes/users');
 
 const app = express();
@@ -19,7 +19,6 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-const logo = { img: '/images/logo.png' };
 
 sequelize
     .sync({ force: false })
@@ -51,13 +50,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ejs render 등록
-app.get('/', (req, res) => {
-    res.render('home', { title: '홈', logo: logo });
-});
-app.get('/home', (req, res) => {
-    res.render('home', { title: '홈', logo: logo });
-});
+// ejs render 등록 - router 나오는 대로 수정 필요
 app.get('/nationwide', (req, res) => {
     res.render('nationwide', { title: '전국 챌린지', logo: logo });
 });
@@ -65,23 +58,16 @@ app.get('/mypage', (req, res) => {
     res.render('mypage', { title: '마이페이지', logo: logo });
 });
 app.get('/login', (req, res) => {
-    res.render('login', { title: '로그인', logo: logo });
-});
-app.get('/signup', (req, res) => {
-    res.render('signup', { title: '회원가입', logo: logo });
+    res.render('login', { title: '로그인' });
 });
 
 app.get('/residenceInfo', (req, res) => {
     res.render('residenceInfo', { title: '유저 세팅', logo: logo });
 });
 
-app.get('/community', (req, res) => {
-    res.render('community', { title: '커뮤니티', logo: logo });
-});
-
 //요청 경로에 따라 router 실행
 app.use('/', indexRouter);
-app.use('/wikis', wikisRouter);
+app.use('/community', communityRouter);
 app.use('/users', usersRouter);
 
 //404 에러처리 미들웨어
