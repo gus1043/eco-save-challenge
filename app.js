@@ -9,6 +9,7 @@ const passport = require('passport');
 
 dotenv.config();
 
+// 라우터 임포트
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const communityRouter = require('./routes/community');
@@ -52,17 +53,7 @@ app.use(passport.session());
 
 // ejs render 등록 - router 나오는 대로 수정 필요
 app.get('/nationwide', (req, res) => {
-    res.render('nationwide', { title: '전국 챌린지', logo: logo });
-});
-app.get('/mypage', (req, res) => {
-    res.render('mypage', { title: '마이페이지', logo: logo });
-});
-app.get('/login', (req, res) => {
-    res.render('login', { title: '로그인' });
-});
-
-app.get('/residenceInfo', (req, res) => {
-    res.render('residenceInfo', { title: '유저 세팅', logo: logo });
+    res.render('nationwide', { title: '전국 챌린지' });
 });
 
 //요청 경로에 따라 router 실행

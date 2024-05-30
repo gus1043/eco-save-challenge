@@ -22,7 +22,7 @@
     <body>
         <div class="wrapper">
             <div class="logo-container">
-                <img src="<%= logo.img %>" class="logo" />
+                <img src="/images/logo.png" class="logo" />
             </div>
 
             <div class="header">
@@ -84,7 +84,7 @@
                             <div class="input_wrap">
                                 <input
                                     type="number"
-                                    placeholder="주요 전자 사용 기기"
+                                    placeholder="주요 전자 사용 기기 수"
                                     name="Last Name"
                                     class="input"
                                     id="elect_application"
@@ -133,6 +133,12 @@
                         </p>
                     </div>
 
+                    <label for="agree" class="chk_box">
+                        <input type="checkbox" id="agree" checked="checked" />
+                        <span class="on"></span>
+                        이용약관에 동의합니다.
+                    </label>
+
                     <form></form>
                 </div>
             </div>
@@ -166,6 +172,6 @@
                 <p>You have successfully completed the process.</p>
             </div>
         </div>
-        <script src="residenceInfo.js"></script>
+        <script src="/residenceInfo.js"></script>
     </body>
 </html>
