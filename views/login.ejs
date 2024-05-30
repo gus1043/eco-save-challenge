@@ -10,7 +10,7 @@
         <div class="wrapper">
             <div class="input-form">
                 <img class="logo" src="/images/logo.png" />
-                <form id="form" action="/admit" method="post">
+                <form id="form" method="post">
                     <input type="text" name="email" placeholder="이메일 입력" /><br />
                     <input type="password" name="password" placeholder="비밀번호 입력" />
                     <p>
@@ -20,5 +20,9 @@
                 <a href="/signup"><u>회원가입</u></a>
             </div>
         </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/login.js"></script>
+        <!-- alert css 쓰기 위한 cdn 설치 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </body>
 </html>
