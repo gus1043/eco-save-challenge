@@ -14,7 +14,7 @@ document.getElementById('edit').addEventListener('click', function () {
 // 위키 내용 로드
 async function getWiki() {
     try {
-        const res = await axios.get('/wikis');
+        const res = await axios.get('/community/wikis');
         const wikis = res.data;
         console.log(wikis);
 
@@ -61,7 +61,7 @@ document.getElementById('wiki-form').addEventListener('submit', async (e) => {
         return alert('내용을 입력하세요');
     }
     try {
-        await axios.post('/wikis', { created_at, content });
+        await axios.post('/community/wikis', { created_at, content });
         window.location.reload();
     } catch (err) {
         console.error(err);
