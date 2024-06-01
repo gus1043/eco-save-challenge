@@ -6,8 +6,8 @@ const router = express.Router();
 //메인페이지
 router.get('/', async (req, res, next) => {
     try {
-        const users = await User.findAll();
-        res.render('home', { title: '홈' });
+        const user = req.user ? req.user : null; // 회원 정보
+        res.render('home', { title: '홈', user: req.user });
     } catch (err) {
         console.error(err);
         next(err);
