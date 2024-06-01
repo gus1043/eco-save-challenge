@@ -82,7 +82,7 @@ router
 
                 // residence_info가 존재하고 address 컬럼이 있는지 확인합니다.
                 const address = residenceInfo ? residenceInfo.address : null;
-
+                console.log('residence_info:', residenceInfo);
                 // residence_info가 존재하면 해당 정보를 포함하여 응답을 반환합니다.
                 // 존재하지 않으면 null 또는 적절한 메시지를 반환합니다.
                 res.status(200).json({

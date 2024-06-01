@@ -23,12 +23,12 @@ document.getElementById('form').addEventListener('submit', async (e) => {
             });
 
             // 여기서 response.data에 따라 다른 페이지로 리다이렉션하는 로직을 추가
-            if (response.data.address && response.data.address !== 'No residence information found') {
-                // 주소 정보가 있을 경우의 페이지
-                window.location.href = '/';
-            } else {
+            if (response.data.address == 'No residence information found') {
                 // 주소 정보가 없을 경우의 페이지
                 window.location.href = '/users/residenceInfo';
+            } else {
+                // 주소 정보가 있을 경우의 페이지
+                window.location.href = '/';
             }
         } else {
             // 서버에서 정의된 다른 상태 코드 처리
