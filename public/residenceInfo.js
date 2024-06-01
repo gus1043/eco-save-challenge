@@ -192,10 +192,91 @@ form_3_back_btn.addEventListener('click', function () {
     form_3_progessbar.classList.remove('active');
 });
 
-btn_done.addEventListener('click', function () {
-    modal_wrapper.classList.add('active');
-});
+// btn_done.addEventListener('click', function () {
+//     modal_wrapper.classList.add('active');
+// });
 
-shadow.addEventListener('click', function () {
-    modal_wrapper.classList.remove('active');
+// shadow.addEventListener('click', function () {
+//     modal_wrapper.classList.remove('active');
+// });
+
+// 사용자 등록 시
+document.getElementById('btn_done').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById('form');
+    const addressInput = form.addressInput.value;
+    const homestructure = form.homestructure.value;
+    const num_member = form.num_member.value;
+    const elect_application = form.elect_application.value;
+    const age = form.age.value;
+    const agree = form.agree.checked;
+
+    if (!addressInput || !homestructure || !num_member || !elect_application) {
+        return await Swal.fire({
+            icon: 'error',
+            title: '유저 정보 세팅 실패',
+            text: '정보를 모두 입력해주세요.',
+            confirmButtonColor: '#19A337',
+            confirmButtonText: '확인',
+        });
+    }
+    if (!agree) {
+        return await Swal.fire({
+            icon: 'error',
+            title: '유저 정보 세팅 실패',
+            text: '약관에 동의해주세요.',
+            confirmButtonColor: '#19A337',
+            confirmButtonText: '확인',
+        });
+    }
+
+    try {
+        // 서버에 회원가입 요청
+        const response = await axios.post('/users/residenceInfo', {
+            addressInput,
+            homestructure,
+            num_member,
+            elect_application,
+            age,
+            agree,
+        });
+
+        // 성공하면 메인으로 이동
+        if (response.status === 201) {
+            await Swal.fire({
+                icon: 'success',
+                title: '유저 정보 세팅 완료!',
+                text: '메인 페이지로 이동합니다.',
+                confirmButtonColor: '#19A337',
+                confirmButtonText: '확인',
+            });
+            window.location.href = '/'; // 메인 페이지로 이동
+        } else {
+            // 서버에서 정의된 다른 상태 코드 처리
+            await Swal.fire({
+                icon: 'error',
+                title: '유저 정보 세팅 실패',
+                confirmButtonColor: '#19A337',
+                confirmButtonText: '확인',
+            });
+        }
+    } catch (err) {
+        console.error(err);
+        await Swal.fire({
+            icon: 'error',
+            title: '유저 정보 세팅 실패',
+            text: '유저 정보 세팅 중 오류가 발생했습니다.',
+            confirmButtonColor: '#19A337',
+            confirmButtonText: '확인',
+        });
+    }
+
+    // 입력 폼 초기화
+    e.target.addressInput.value = '';
+    e.target.homestructure.value = '';
+    e.target.num_member.value = '';
+    e.target.elect_application.value = '';
+    e.target.age.value = '';
+    e.target.agree.checked = false;
 });

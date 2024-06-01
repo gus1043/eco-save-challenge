@@ -24,6 +24,10 @@ class Residence_info extends Sequelize.Model {
                     type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: true,
                 },
+                agree: {
+                    type: Sequelize.BOOLEAN,
+                    allowNull: true,
+                },
             },
             {
                 sequelize,

@@ -117,17 +117,36 @@ router.get(
 );
 
 // 유저 정보 세팅
-router.route('/residenceInfo').get(isLoggedIn, async (req, res, next) => {
-    try {
-        console.log(req.user);
+router
+    .route('/residenceInfo')
+    .get(isLoggedIn, async (req, res, next) => {
+        try {
+            console.log(req.user);
 
-        // 사용자 정보를 렌더링
-        res.render('residenceInfo', { title: '유저 세팅' });
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+            // 사용자 정보를 렌더링
+            res.render('residenceInfo', { title: '유저 세팅', user: req.user });
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
+    .post(isLoggedIn, async (req, res, next) => {
+        try {
+            const residence_info = await Residence_info.create({
+                user: req.user.email,
+                address: req.body.addressInput,
+                house_structure: req.body.homestructure,
+                num_member: req.body.num_member,
+                electrical_appliance: req.body.elect_application,
+                age: req.body.age,
+                agree: req.body.agree,
+            });
+            res.status(201).json(residence_info);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
 
 // 마이페이지
 router.get('/mypage', isLoggedIn, async (req, res, next) => {
