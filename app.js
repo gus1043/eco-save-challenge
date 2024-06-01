@@ -14,6 +14,7 @@ const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const communityRouter = require('./routes/community');
 const usersRouter = require('./routes/users');
+const nationRouter = require('./routes/nationwide');
 
 const app = express();
 
@@ -51,15 +52,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ejs render 등록 - router 나오는 대로 수정 필요
-app.get('/nationwide', (req, res) => {
-    res.render('nationwide', { title: '전국 챌린지' });
-});
-
 //요청 경로에 따라 router 실행
 app.use('/', indexRouter);
 app.use('/community', communityRouter);
 app.use('/users', usersRouter);
+app.use('/nationwide', nationRouter);
 
 //404 에러처리 미들웨어
 app.use((req, res, next) => {

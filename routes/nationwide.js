@@ -2,33 +2,64 @@ const express = require('express');
 const axios = require('axios');
 
 const router = express.Router();
-require('dotenv').config();
 
-const HOST = 'https://bigdata.kepco.co.kr/openapi/v1/powerUsage/contractType.do';
-const apiKey = process.env.OPEN_API_KEY;
+const OPEN_API_KEY = process.env.OPEN_API_KEY;
+const endpoint = 'https://bigdata.kepco.co.kr/openapi/v1/powerUsage/contractType.do';
 
-router.route('/').get(async (req, res, next) => {
-    try {
-        // OpenAPI URL
-        const apiUrl = 'Enter_the_OpenAPI_URL_here';
+router
+    .route('/')
+    .get(async (req, res, next) => {
+        res.render('nationwide', { title: '전국 챌린지', user: req.user });
+    })
+    .post(async (req, res, next) => {
+        try {
+            const { year, month, country } = req.body;
+            const apiUrl = `${endpoint}?year=${year}&month=${month}&metroCd=${country}&apiKey=${OPEN_API_KEY}&returnType=json`;
 
-        // API 키를 환경 변수에서 가져옵니다.
-        const apiKey = process.env.OPEN_API_KEY;
+            const contractTypes = [
+                { cntrCd: 100, name: '주택용' },
+                { cntrCd: 200, name: '일반용' },
+                { cntrCd: 250, name: '교육용' },
+                { cntrCd: 300, name: '산업용' },
+                { cntrCd: 500, name: '농사용' },
+                { cntrCd: 600, name: '가로등' },
+            ];
 
-        // axios를 사용하여 OpenAPI 호출
-        const response = await axios.get(apiUrl, {
-            headers: {
-                Authorization: `Bearer ${apiKey}`, // API 키를 헤더에 추가
-            },
-        });
+            let categorizedResults = {};
 
-        // OpenAPI에서 받은 데이터를 클라이언트에 응답으로 보냅니다.
-        res.status(200).json(response.data);
-        res.render('nationwide', { title: '전국 챌린지' });
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+            for (let type of contractTypes) {
+                const response = await axios.get(`${apiUrl}&cntrCd=${type.cntrCd}`);
+
+                const data = response.data.data;
+                if (Array.isArray(data)) {
+                    // 각 카테고리별로 bill 값 기준 상위 10개 데이터 추출
+                    const top10 = data
+                        .sort((a, b) => b.bill - a.bill)
+                        .slice(0, 10)
+                        .map((item) => ({
+                            year: item.year,
+                            month: item.month,
+                            metro: item.metro,
+                            city: item.city,
+                            cntr: type.name,
+                            custCnt: item.custCnt,
+                            powerUsage: item.powerUsage,
+                            bill: item.bill,
+                            unitCost: item.unitCost,
+                        }));
+
+                    categorizedResults[type.name] = top10;
+                    //console.log(categorizedResults);
+                } else {
+                    console.error(`Expected array but got ${typeof data}`);
+                }
+            }
+
+            res.json({ data: categorizedResults });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('API 호출 중 에러가 발생했습니다.');
+        }
+    });
 
 module.exports = router;

@@ -10,13 +10,38 @@
         <header><%- include('./header'); %></header>
         <div class="container">
             <div class="selectYear">
-                <h2>우리나라 지역별 전기료 사용 모니터링</h2>
-                <select name="year" id="year">
-                    <option id="last" value="last">작년</option>
-                    <option id="twoYear" value="twoYear">2년전</option>
-                    <option id="threeYear" value="threeYear">3년전</option>
-                    <option id="fourYear" value="fourYear">4년전</option>
-                </select>
+                <div class="title-wrapper">
+                    <h2>우리나라 지역별 전기료 사용 모니터링</h2>
+                    <h4>지난해보다 얼마나 전력을 아끼고 있을까?</h4>
+                </div>
+
+                <div class="select-wrapper">
+                    <select name="year" id="year"></select>
+                    <select name="month" id="month"></select>
+                    <select name="country" id="country">
+                        <option value="11">서울</option>
+                        <option value="26">부산</option>
+                        <option value="27">대구</option>
+                        <option value="28">인천</option>
+                        <option value="29">광주</option>
+                        <option value="30">대전</option>
+                        <option value="31">울산</option>
+                        <!-- <option value="36">세종</option> -->
+                        <option value="41">경기</option>
+                        <option value="51">강원</option>
+                        <option value="43">충북</option>
+                        <option value="44">충남</option>
+                        <option value="52">전북</option>
+                        <option value="46">전남</option>
+                        <option value="47">경북</option>
+                        <option value="48">경남</option>
+                        <option value="50">제주</option>
+                    </select>
+                    <select name="order" id="order">
+                        <option value="desc">높은순</option>
+                        <option value="asc">낮은순</option>
+                    </select>
+                </div>
             </div>
 
             <div class="service-section">
@@ -26,12 +51,14 @@
                             <i class="ph-lightning-light"></i>
                             <h3 id="report-title">주택용 전력</h3>
                         </div>
+                        <canvas id="chart-housing"></canvas>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
                             <h3>일반(상업)용 전력</h3>
                         </div>
+                        <canvas id="chart-commercial"></canvas>
                     </div>
                 </div>
             </div>
@@ -42,12 +69,14 @@
                             <i class="ph-lightning-light"></i>
                             <h3 id="report-title">교육용 전력</h3>
                         </div>
+                        <canvas id="chart-education"></canvas>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
                             <h3>산업용 전력</h3>
                         </div>
+                        <canvas id="chart-industrial"></canvas>
                     </div>
                 </div>
             </div>
@@ -58,12 +87,14 @@
                             <i class="ph-lightning-light"></i>
                             <h3 id="report-title">농사용 전력</h3>
                         </div>
+                        <canvas id="chart-agricultural"></canvas>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
                             <h3>가로등</h3>
                         </div>
+                        <canvas id="chart-street"></canvas>
                     </div>
                 </div>
             </div>
@@ -73,6 +104,8 @@
             <header><%- include('./footer'); %></header>
         </footer>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/nationwide.js"></script>
     </body>
 </html>
