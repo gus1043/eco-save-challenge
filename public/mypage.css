@@ -1,40 +1,27 @@
-body,
-html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+html,
+body {
     height: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
 body {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .container {
-    width: 100%;
     width: 75%;
     margin: 0 auto; /* 가운데 정렬 */
-    height: calc(100vh - 115px);
-}
-
-.wrapper .form_wrap .input_wrap .input {
-    border: 2px solid var(--secondary);
-    border-radius: 3px;
-    padding: 10px;
-    display: block;
-    width: 100%;
-    font-size: 16px;
-    transition: 0.5s ease;
+    flex: 1;
 }
 
 .tiles {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1rem;
-    width: 100%;
     row-gap: 1rem;
     margin-top: 1.25rem;
 }
@@ -45,22 +32,23 @@ body {
     }
 }
 
-.tile {
+.tile,
+.single-tile {
     padding: 1rem;
     border-radius: 8px;
     min-height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
     transition: 0.25s ease;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--c-olive-500);
     color: var(--c-gray-900);
 }
 
-.tile:hover {
+.tile:hover,
+.single-tile:hover {
     transform: translateY(-5px);
 }
 
@@ -87,37 +75,4 @@ body {
 .tile-header h3 span:last-child {
     font-size: 0.825em;
     font-weight: 200;
-}
-
-.single-tile {
-    padding: 1rem;
-    border-radius: 8px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    transition: 0.25s ease;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: var(--c-olive-500);
-    color: var(--c-gray-900);
-}
-
-.single-tile:hover {
-    transform: translateY(-5px);
-}
-
-.single-tile:focus {
-    box-shadow: none;
-}
-
-.single-tile:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
 }
