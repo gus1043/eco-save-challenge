@@ -10,6 +10,16 @@ class User_info extends Sequelize.Model {
                 },
                 month: {
                     type: Sequelize.INTEGER.UNSIGNED,
+                    allowNull: false,
+                    primaryKey: true,
+                },
+                user: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                    primaryKey: true,
+                },
+                bill: {
+                    type: Sequelize.FLOAT,
                     allowNull: true,
                 },
             },

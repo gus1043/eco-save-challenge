@@ -273,10 +273,10 @@ document.getElementById('btn_done').addEventListener('click', async (e) => {
     }
 
     // 입력 폼 초기화
-    e.target.addressInput.value = '';
-    e.target.homestructure.value = '';
-    e.target.num_member.value = '';
-    e.target.elect_application.value = '';
-    e.target.age.value = '';
-    e.target.agree.checked = false;
+    form.addressInput.value = '';
+    form.homestructure.value = '';
+    form.num_member.value = '';
+    form.elect_application.value = '';
+    form.age.value = '';
+    form.agree.checked = false;
 });

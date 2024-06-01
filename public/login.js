@@ -17,13 +17,13 @@ document.getElementById('form').addEventListener('submit', async (e) => {
             await Swal.fire({
                 icon: 'success',
                 title: '로그인 성공!',
-                text: '메인 페이지로 이동합니다.',
+                text: '이동합니다.',
                 confirmButtonColor: '#19A337',
                 confirmButtonText: '확인',
             });
 
             // 여기서 response.data에 따라 다른 페이지로 리다이렉션하는 로직을 추가
-            if (response.data.address == 'No residence information found') {
+            if (response.data.residence_info == null) {
                 // 주소 정보가 없을 경우의 페이지
                 window.location.href = '/users/residenceInfo';
             } else {
