@@ -76,21 +76,16 @@ router
                     return next(loginError);
                 }
 
-                // 여기서 ResidenceInfoModel는 residence_info 테이블을 나타내는 모델입니다.
-                // user.id를 사용하여 residence_info를 조회합니다.
+                // user.id를 사용하여 residence_info를 조회
                 const residenceInfo = await Residence_info.findOne({ where: { user: user.email } });
-
-                // residence_info가 존재하고 address 컬럼이 있는지 확인합니다.
-                const address = residenceInfo ? residenceInfo.address : null;
                 console.log('residence_info:', residenceInfo);
-                // residence_info가 존재하면 해당 정보를 포함하여 응답을 반환합니다.
-                // 존재하지 않으면 null 또는 적절한 메시지를 반환합니다.
+
                 res.status(200).json({
                     message: 'Login successful',
-                    residence_info: address ? address : 'No residence information found',
+                    residence_info: residenceInfo,
                 });
             });
-        })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
+        })(req, res, next);
     });
 
 // logout
@@ -99,6 +94,21 @@ router.get('/logout', isLoggedIn, (req, res) => {
         req.session.destroy();
         res.redirect('/');
     });
+});
+
+// 회원탈퇴
+router.delete('/delete', isLoggedIn, async (req, res, next) => {
+    try {
+        await User.destroy({
+            where: {
+                email: req.user.email,
+            },
+        });
+        return res.send("<script>alert('회원탈퇴가 완료되었습니다.');location.href='/';</script>");
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
 });
 
 // kakao site login
@@ -148,13 +158,73 @@ router
         }
     });
 
-// 마이페이지
+//마이페이지 렌더
 router.get('/mypage', isLoggedIn, async (req, res, next) => {
     try {
-        console.log(req.user);
-
-        // 사용자 정보를 렌더링
         res.render('mypage', { title: '마이페이지', user: req.user });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+//마이페이지 - 프로필 불러오기
+router
+    .route('/mypage/profile')
+    .get(async (req, res, next) => {
+        try {
+            const residenceInfo = await Residence_info.findOne({ where: { user: req.user.email } });
+            res.json(residenceInfo);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
+    .put(async (req, res, next) => {
+        try {
+            const { address, houseStructure, numMember, electApplication, age } = req.body;
+
+            console.log('수정데이터:', req.body);
+
+            // 수정할 사람 찾기
+            const residenceInfo = await Residence_info.findOne({ where: { user: req.user.email } });
+            console.log('찾는사람:', residenceInfo);
+
+            // 주소 정보 업데이트
+            if (residenceInfo) {
+                // 데이터 형식을 숫자로 변환
+                const numMemberInt = parseInt(numMember);
+                const electApplicationInt = parseInt(electApplication);
+
+                // 업데이트할 필드명을 모델과 일치시킴
+                const updatedResidenceInfo = await residenceInfo.update({
+                    address,
+                    house_structure: houseStructure, // 필드명을 모델과 일치시킴
+                    num_member: numMemberInt, // 숫자형으로 변환하여 할당
+                    electrical_appliance: electApplicationInt, // 숫자형으로 변환하여 할당
+                    age,
+                });
+
+                console.log('결과', updatedResidenceInfo);
+
+                // 수정된 주소 정보를 클라이언트에 반환
+                res.status(200).json({
+                    message: '사용자의 주소 정보가 성공적으로 업데이트되었습니다.',
+                    residenceInfo: updatedResidenceInfo,
+                });
+            } else {
+                // 찾은 주소 정보가 없을 경우
+                return res.status(404).json({ message: '해당 사용자의 주소 정보를 찾을 수 없습니다.' });
+            }
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
+
+// 마이페이지 - ai 리포트
+router.get('/mypage/aireport', isLoggedIn, async (req, res, next) => {
+    try {
     } catch (err) {
         console.error(err);
         next(err);

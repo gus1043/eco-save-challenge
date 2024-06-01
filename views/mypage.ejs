@@ -10,6 +10,70 @@
         <header><%- include('./header'); %></header>
         <div class="container">
             <div>
+                <div class="transfer-section">
+                    <div class="single-tile">
+                        <h3><%= user.name %>님 반갑습니다.</h3>
+                        <div class="user-info">
+                            <div class="left-half">
+                                <div class="filter-options">dsadsa</div>
+                            </div>
+
+                            <div class="right-half">
+                                <div class="filter-options">
+                                    <form id="profile">
+                                        <div class="pseudo-search">
+                                            <input id="addressInput" type="text" autofocus required />
+                                            <button id="searchButton" type="submit">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input_wrap">
+                                            <input
+                                                type="text"
+                                                placeholder="집구조 e.g.복층, 원룸"
+                                                name="User Name"
+                                                class="input"
+                                                id="homestructure"
+                                            />
+                                        </div>
+                                        <div class="input_wrap">
+                                            <input
+                                                type="number"
+                                                placeholder="가구원 수"
+                                                name="First Name"
+                                                class="input"
+                                                id="num_member"
+                                            />
+                                        </div>
+                                        <div class="input_wrap">
+                                            <input
+                                                type="number"
+                                                placeholder="주요 사용 전자기기 수"
+                                                name="Last Name"
+                                                class="input"
+                                                id="elect_application"
+                                            />
+                                        </div>
+                                        <div class="input_wrap">
+                                            <select name="age" id="age">
+                                                <option value="20">20대</option>
+                                                <option value="30">30대</option>
+                                                <option value="40">40대</option>
+                                                <option value="50">50대</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="button">
+                                            <button id="editProfile" type="button">개인정보 수정</button>
+                                            <button id="logout" type="button">로그아웃</button>
+                                            <button id="delete" type="button">회원 탈퇴</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="service-section">
                     <div class="tiles">
                         <div class="tile">
@@ -35,10 +99,11 @@
             </div>
         </div>
 
-        <footer>
-            <header><%- include('./footer'); %></header>
-        </footer>
+        <footer><%- include('./footer'); %></footer>
 
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/mypage.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="http://maps.google.com/maps/api/js?key=<%= process.env.GOOGLE_MAP_KEY %>" async defer></script>
     </body>
 </html>
