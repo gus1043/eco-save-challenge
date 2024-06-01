@@ -16,7 +16,7 @@ class Wiki extends Sequelize.Model {
             },
             {
                 sequelize,
-                timestamps: true,
+                timestamps: false,
                 underscored: false,
                 modelName: 'Wiki',
                 tableName: 'wikis',

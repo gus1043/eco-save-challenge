@@ -28,10 +28,19 @@ class Residence_info extends Sequelize.Model {
                     type: Sequelize.BOOLEAN,
                     allowNull: true,
                 },
+                user: {
+                    type: Sequelize.STRING(320),
+                    allowNull: false,
+                    onDelete: 'CASCADE', // 외래 키 삭제 옵션 설정
+                    references: {
+                        model: 'users', // 참조할 테이블 이름
+                        key: 'email', // 참조할 열 이름
+                    },
+                },
             },
             {
                 sequelize,
-                timestamps: true,
+                timestamps: false,
                 underscored: false,
                 modelName: 'Residence_info',
                 tableName: 'residence_info',
@@ -43,7 +52,7 @@ class Residence_info extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Residence_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email' });
+        db.Residence_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email', onDelete: 'CASCADE' });
     }
 }
 

@@ -11,21 +11,24 @@ class User_info extends Sequelize.Model {
                 month: {
                     type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: false,
-                    primaryKey: true,
-                },
-                user: {
-                    type: Sequelize.STRING,
-                    allowNull: false,
-                    primaryKey: true,
                 },
                 bill: {
                     type: Sequelize.FLOAT,
                     allowNull: true,
                 },
+                user: {
+                    type: Sequelize.STRING(320),
+                    allowNull: false,
+                    onDelete: 'CASCADE', // 외래 키 삭제 옵션 설정
+                    references: {
+                        model: 'users', // 참조할 테이블 이름
+                        key: 'email', // 참조할 열 이름
+                    },
+                },
             },
             {
                 sequelize,
-                timestamps: true,
+                timestamps: false,
                 underscored: false,
                 modelName: 'User_info',
                 tableName: 'user_info',
@@ -37,7 +40,7 @@ class User_info extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email' });
+        db.User_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email', onDelete: 'CASCADE' });
     }
 }
 
