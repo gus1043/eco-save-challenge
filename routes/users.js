@@ -158,6 +158,21 @@ router
         }
     });
 
+// 유저 요금 post
+router.route('/billpost').post(isLoggedIn, async (req, res, next) => {
+    try {
+        const user_info = await User_info.create({
+            user: req.user.email,
+            bill: req.body.bill,
+            date: req.body.date,
+        });
+        res.status(201).json(user_info);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
 //마이페이지 렌더
 router.get('/mypage', isLoggedIn, async (req, res, next) => {
     try {

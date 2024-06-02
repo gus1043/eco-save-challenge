@@ -8,6 +8,7 @@
 
     <body>
         <header><%- include('./header'); %></header>
+
         <div class="container">
             <h2 id="heading">월 챌린지</h2>
             <div class="service-section">
@@ -16,12 +17,36 @@
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
                             <h3 id="report-title">나의 요금</h3>
+                            <div class="mybill">
+                                <div>
+                                    <% if (bill) { %>
+                                    <div class="split-container">
+                                        <div class="left-half">
+                                            <img
+                                                src="https://em-content.zobj.net/source/microsoft-teams/363/money-with-wings_1f4b8.png"
+                                            />
+                                        </div>
+                                        <div class="right-half">
+                                            <h1><%= bill %>원</h1>
+                                        </div>
+                                    </div>
+
+                                    <% } else { %>
+                                    <h2>아직 요금이 등록되지 않았습니다!</h2>
+                                    <button id="registerButton">요금 등록하고 시작하기</button>
+                                    <% } %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <h3 id="percent">
+                                이번달 전기요금은<br />
+                                내 나이대 중 상위 100%, 전체 상위 100%입니다
+                            </h3>
+                            <canvas id="percentchcart" height="100px" width="auto"></canvas>
                         </div>
                     </div>
                 </div>
@@ -31,13 +56,38 @@
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
-                            <h3 id="report-title">절약 리포트</h3>
+                            <div class="split-container">
+                                <div class="left-half">
+                                    <img
+                                        id="use"
+                                        src="https://em-content.zobj.net/source/microsoft-teams/363/face-holding-back-tears_1f979.png"
+                                    />
+                                </div>
+                                <div class="right-half">
+                                    <h2 id="how">
+                                        000만큼 <br />
+                                        전기를 사용했어요
+                                    </h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <div class="tile-header">
+                                <i class="ph-lightning-light"></i>
+                                <div class="split-container">
+                                    <div class="left-half">
+                                        <img
+                                            src="https://em-content.zobj.net/source/microsoft-teams/363/money-mouth-face_1f911.png"
+                                        />
+                                    </div>
+                                    <div class="right-half">
+                                        <h2 id="saving">지난달보다 <br />000원 더 아꼈어요</h2>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,23 +97,51 @@
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-lightning-light"></i>
-                            <h3 id="report-title">절약 리포트</h3>
+                            <h3 id="report-title">우리동네 절약 랭킹</h3>
+                            <% if (bill) { %>
+                            <h2>
+                                <canvas id="countrychart"></canvas>
+                            </h2>
+                            <% } else { %>
+                            <h2>로그인하고 확인하기</h2>
+                            <% } %>
                         </div>
                     </div>
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
-                            <h3>AI 절약 컨설팅</h3>
+                            <h3>전체 사용자 절약 랭킹</h3>
+                            <% if (bill) { %>
+                            <h2>
+                                <canvas id="alluserschart"></canvas>
+                            </h2>
+                            <% } else { %>
+                            <h2>로그인하고 확인하기</h2>
+                            <% } %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <% if (user) { %>
+        <!-- 모달은 로그인 하지 않은 유저에게만 보임 -->
+        <% } else { %>
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <p>로그인 후 사용해 주세요.</p>
+                <button id="loginBtn">로그인 페이지로 이동</button>
+            </div>
+        </div>
+
+        <% } %>
+
         <footer>
             <header><%- include('./footer'); %></header>
         </footer>
-
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/home.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </body>
 </html>
