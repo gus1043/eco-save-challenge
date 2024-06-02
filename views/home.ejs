@@ -42,10 +42,14 @@
                     <div class="tile">
                         <div class="tile-header">
                             <i class="ph-fire-simple-light"></i>
+                            <% if (user) { %>
+                            <h3 id="percent"></h3>
+                            <% } else { %>
                             <h3 id="percent">
                                 이번달 전기요금은<br />
                                 내 나이대 중 상위 100%, 전체 상위 100%입니다
                             </h3>
+                            <% } %>
                             <canvas id="percentchcart" height="100px" width="auto"></canvas>
                         </div>
                     </div>
@@ -58,16 +62,24 @@
                             <i class="ph-lightning-light"></i>
                             <div class="split-container">
                                 <div class="left-half">
+                                    <% if (user) { %>
+                                    <img id="use" />
+                                    <% } else { %>
                                     <img
                                         id="use"
                                         src="https://em-content.zobj.net/source/microsoft-teams/363/face-holding-back-tears_1f979.png"
                                     />
+                                    <% } %>
                                 </div>
                                 <div class="right-half">
+                                    <% if (user) { %>
+                                    <h2 id="how"></h2>
+                                    <% } else { %>
                                     <h2 id="how">
                                         000만큼 <br />
                                         전기를 사용했어요
                                     </h2>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +96,11 @@
                                         />
                                     </div>
                                     <div class="right-half">
+                                        <% if (user) { %>
+                                        <h2 id="saving"></h2>
+                                        <% } else { %>
                                         <h2 id="saving">지난달보다 <br />000원 더 아꼈어요</h2>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -99,9 +115,7 @@
                             <i class="ph-lightning-light"></i>
                             <h3 id="report-title">우리동네 절약 랭킹</h3>
                             <% if (bill) { %>
-                            <h2>
-                                <canvas id="countrychart"></canvas>
-                            </h2>
+                            <canvas id="countrychart"></canvas>
                             <% } else { %>
                             <h2>로그인하고 확인하기</h2>
                             <% } %>
@@ -112,9 +126,7 @@
                             <i class="ph-fire-simple-light"></i>
                             <h3>전체 사용자 절약 랭킹</h3>
                             <% if (bill) { %>
-                            <h2>
-                                <canvas id="alluserschart"></canvas>
-                            </h2>
+                            <canvas id="alluserschart"></canvas>
                             <% } else { %>
                             <h2>로그인하고 확인하기</h2>
                             <% } %>
