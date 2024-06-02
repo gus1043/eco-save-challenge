@@ -8,33 +8,31 @@
 
     <body>
         <header><%- include('./header'); %></header>
-        <div class="wrapper">
-            <div class="container">
-                <!-- 절약 위키 화면 구현 -->
-                <div class="left">
-                    <div class="header-container">
-                        <div class="title-container">
-                            <h2 class="title">절약 위키</h2>
-                        </div>
-                        <div class="edit-container">
-                            <button class="btn" id="edit">위키 수정</button>
-                        </div>
+        <div class="container">
+            <!-- 절약 위키 화면 구현 -->
+            <div class="left">
+                <div class="header-container">
+                    <div class="title-container">
+                        <h2 class="title">절약 위키</h2>
                     </div>
-                    <form id="wiki-form" style="display: none">
-                        <fieldset>
-                            <legend>위키 입력</legend>
-                            <div><textarea id="wiki" type="text" placeholder="위키 마크다운으로 입력"></textarea></div>
-                            <button type="submit">등록</button>
-                        </fieldset>
-                    </form>
-                    <br />
-                    <div id="wiki-content"><p id="wikiDate">날짜 넣을거야</p></div>
-                    <br />
+                    <div class="edit-container">
+                        <button class="btn" id="edit">위키 수정</button>
+                    </div>
                 </div>
-                <!--왼쪽 오른쪽 구분 선 -->
-                <div class="divider"></div>
-                <div class="right">오</div>
+                <form id="wiki-form" style="display: none">
+                    <fieldset>
+                        <legend>위키 입력</legend>
+                        <div><textarea id="wiki" type="text" placeholder="위키 마크다운으로 입력"></textarea></div>
+                        <button type="submit">등록</button>
+                    </fieldset>
+                </form>
+                <br />
+                <div id="wiki-content"><p id="wikiDate">날짜 넣을거야</p></div>
+                <br />
             </div>
+            <!--왼쪽 오른쪽 구분 선 -->
+            <div class="divider"></div>
+            <div class="right">오</div>
         </div>
 
         <footer>

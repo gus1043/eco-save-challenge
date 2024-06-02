@@ -3,7 +3,7 @@ const Wiki = require('../models/wiki');
 
 const router = express.Router();
 router.route('/').get(async (req, res, next) => {
-    res.render('community', { title: '커뮤니티' });
+    res.render('community', { title: '커뮤니티', user: req.user });
 });
 router
     .route('/wikis')

@@ -8,13 +8,11 @@ html {
     flex-direction: column;
 }
 
-.wrapper {
-    padding-left: 10%;
-    padding-right: 10%;
-}
 .container {
     display: flex;
     width: 100%;
+    width: 70%;
+    margin: 0 auto; /* 가운데 정렬 */
     height: calc(100vh - 115px);
 }
 
