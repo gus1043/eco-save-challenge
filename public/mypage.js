@@ -23,8 +23,35 @@ async function getProfile() {
     }
 }
 
+// 컨설트/리포트 로드
+async function getReport() {
+    try {
+        const res = await axios.get('/aireport');
+        const aireport = res.data;
+
+        console.log();
+
+        if (aireport.consult !== null) {
+            //컨설트 내용이 있다면
+            document.getElementById('report').textContent = aireport.report;
+            document.getElementById('consult').textContent = aireport.consult;
+        } else {
+            document.getElementById('report').textContent = '3213213';
+            document.getElementById('consult').textContent = '3213213';
+            await axios.post('/aireport');
+            // 페이지 새로고침
+            window.location.reload();
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 // 페이지 로드 시 프로필 로딩
-window.onload = getProfile;
+window.onload = function () {
+    getProfile();
+    getReport();
+};
 
 // 프로필 수정 버튼 클릭 이벤트 리스너 추가
 document.getElementById('editProfile').addEventListener('click', async (e) => {

@@ -8,6 +8,10 @@ class User_info extends Sequelize.Model {
                     type: Sequelize.TEXT,
                     allowNull: true,
                 },
+                report: {
+                    type: Sequelize.TEXT,
+                    allowNull: true,
+                },
                 bill: {
                     type: Sequelize.FLOAT,
                     allowNull: true,
