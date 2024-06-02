@@ -8,10 +8,6 @@ class User_info extends Sequelize.Model {
                     type: Sequelize.TEXT,
                     allowNull: true,
                 },
-                month: {
-                    type: Sequelize.INTEGER.UNSIGNED,
-                    allowNull: false,
-                },
                 bill: {
                     type: Sequelize.FLOAT,
                     allowNull: true,
@@ -24,6 +20,10 @@ class User_info extends Sequelize.Model {
                         model: 'users', // 참조할 테이블 이름
                         key: 'email', // 참조할 열 이름
                     },
+                },
+                date: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
                 },
             },
             {
@@ -41,6 +41,7 @@ class User_info extends Sequelize.Model {
 
     static associate(db) {
         db.User_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email', onDelete: 'CASCADE' });
+        db.User_info.hasOne(db.Residence_info, { foreignKey: 'user', sourceKey: 'user' });
     }
 }
 

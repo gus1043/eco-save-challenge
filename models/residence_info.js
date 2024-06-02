@@ -53,6 +53,7 @@ class Residence_info extends Sequelize.Model {
 
     static associate(db) {
         db.Residence_info.belongsTo(db.User, { foreignKey: 'user', targetKey: 'email', onDelete: 'CASCADE' });
+        db.Residence_info.belongsTo(db.User_info, { foreignKey: 'user', targetKey: 'user' });
     }
 }
 
