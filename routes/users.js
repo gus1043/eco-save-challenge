@@ -189,28 +189,35 @@ router
     .route('/profile')
     .get(async (req, res, next) => {
         try {
-            const userInfo = await User_info.findAll({
+            const userInfo = await Residence_info.findAll({
                 where: { user: req.user.email },
-                order: [['date', 'DESC']],
-                limit: 2,
                 include: [
                     {
-                        model: Residence_info,
+                        model: User_info,
+                        model: User_info,
+                        order: [['date', 'DESC']],
+                        limit: 2,
+                        required: false, // LEFT JOIN
+                        separate: false, // Ensure separate is not used
                     },
                 ],
             });
 
-            const date = userInfo[0].dataValues.date;
-            const age = userInfo[0].dataValues.Residence_info.dataValues.age;
-            const address = userInfo[0].dataValues.Residence_info.dataValues.address;
-            const electrical_appliance = userInfo[0].dataValues.Residence_info.dataValues.electrical_appliance;
-            const num_member = userInfo[0].dataValues.Residence_info.dataValues.num_member;
-            const house_structure = userInfo[0].dataValues.Residence_info.dataValues.house_structure;
+            console.log('제발:', userInfo);
+            let date = null;
+            if (userInfo[0].date) {
+                date = userInfo[0].date;
+            }
+            const age = userInfo[0].age;
+            const address = userInfo[0].address;
+            const electrical_appliance = userInfo[0].electrical_appliance;
+            const num_member = userInfo[0].num_member;
+            const house_structure = userInfo[0].house_structure;
 
             //지난달보다 아낀 수
             if (userInfo.length === 2) {
-                const latestBill = userInfo[0].dataValues.bill;
-                const previousBill = userInfo[1].dataValues.bill;
+                const latestBill = userInfo[0].bill;
+                const previousBill = userInfo[1].bill;
                 saveBill = latestBill - previousBill;
                 console.log('지난 달보다 아낀 정도:', saveBill);
             } else {

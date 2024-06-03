@@ -19,6 +19,7 @@ router
             });
 
             res.json({
+                bill: userInfo[0].dataValues.bill,
                 report: userInfo[0].dataValues.report,
                 consult: userInfo[0].dataValues.consult,
             });

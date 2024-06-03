@@ -12,6 +12,15 @@ async function getProfile() {
         const res = await axios.get('/users/profile');
         const profile = res.data;
 
+        if (profile.bill) {
+            getReport();
+        } else {
+            document.getElementById('report').textContent = '요금 등록하고 시작하기';
+            document.getElementById('consult').textContent = '요금 등록하고 시작하기';
+        }
+
+        console.log(profile);
+
         // 데이터를 HTML 요소에 채워넣기
         document.getElementById('addressInput').value = profile.address;
         document.getElementById('homestructure').value = profile.house_structure;
@@ -19,7 +28,11 @@ async function getProfile() {
         document.getElementById('elect_application').value = profile.electrical_appliance;
         document.getElementById('age').value = profile.age;
         document.getElementById('bill').src = `https://em-content.zobj.net/source/microsoft-teams/363/${profile.image}`;
-        document.getElementById('report-title').textContent = month + `${profile.date}월 절약리포트`;
+        if (profile.date) {
+            document.getElementById('report-title').textContent = `${profile.date}월 절약리포트`;
+        } else {
+            document.getElementById('report-title').textContent = `절약리포트`;
+        }
     } catch (err) {
         console.error(err);
     }
@@ -105,7 +118,6 @@ function checkAnswer(correctAnswer, userAnswer) {
 // 페이지 로드 시 프로필 로딩
 window.onload = function () {
     getProfile();
-    getReport();
     getQuiz();
 };
 
