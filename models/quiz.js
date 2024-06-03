@@ -9,8 +9,8 @@ class Quiz extends Sequelize.Model {
                     allowNull: false,
                 },
                 answer: {
-                    type: Sequelize.TEXT,
-                    allowNull: false,
+                    type: Sequelize.BOOLEAN,
+                    allowNull: true,
                 },
             },
             {

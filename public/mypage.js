@@ -54,42 +54,53 @@ async function getReport() {
 // 퀴즈 로드
 async function getQuiz() {
     try {
-        const res = await axios.get('/quizes');
-        const quiz = res.data;
+        const res = await axios.get('/quiz');
+        const quizzes = res.data;
+
+        // 랜덤으로 하나의 퀴즈 선택
+        const randomIndex = Math.floor(Math.random() * quizzes.length);
+        const quiz = quizzes[randomIndex];
 
         // 퀴즈 데이터를 HTML 요소에 채워넣기
-        document.getElementById('question').textContent = quiz.question;
-        document.getElementById('answer-input').value = ''; // 이전 답변 초기화
+        const questionContainer = document.getElementById('question-container');
+        questionContainer.classList.remove('hide');
+        questionContainer.querySelector('#question').textContent = quiz.quiz;
 
-        // "제출" 버튼 활성화
-        document.getElementById('submit-btn').classList.remove('hide');
+        // 정답 여부 확인
+        const trueButton = document.querySelector('.true');
+        const falseButton = document.querySelector('.false');
+
+        trueButton.addEventListener('click', () => checkAnswer(quiz.answer, true));
+        falseButton.addEventListener('click', () => checkAnswer(quiz.answer, false));
     } catch (err) {
         console.error(err);
     }
 }
 
-// 답변 제출
-function submitAnswer() {
-    const userAnswer = document.getElementById('answer-input').value;
-
-    // 서버로 답변 전송 및 정답 여부 확인
-    axios
-        .post('/check-answer', { answer: userAnswer })
-        .then((res) => {
-            if (res.data.correct) {
-                alert('정답입니다!');
-            } else {
-                alert('틀렸습니다. 정답은 ' + res.data.correctAnswer + ' 입니다.');
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-            alert('서버 에러가 발생했습니다.');
+function checkAnswer(correctAnswer, userAnswer) {
+    console.log(correctAnswer, userAnswer);
+    let message;
+    if (correctAnswer === userAnswer) {
+        Swal.fire({
+            icon: 'success',
+            title: '정답입니다!',
+            timer: 1000, // 1초 후에 자동으로 닫힘
+            showConfirmButton: false, // 확인 버튼 숨기기
+            timerProgressBar: true, // 타이머 진행 표시줄 표시
+            allowOutsideClick: false, // 바깥쪽 클릭으로 창을 닫지 못하도록 설정
+        }).then(() => {
+            getQuiz();
         });
+    } else {
+        Swal.fire({
+            icon: 'success',
+            title: '틀렸습니다!',
+            text: '이동합니다.',
+            confirmButtonColor: '#19A337',
+            confirmButtonText: '확인',
+        });
+    }
 }
-
-// "제출" 버튼 클릭 시 답변 제출
-document.getElementById('submit-btn').addEventListener('click', submitAnswer);
 
 // 페이지 로드 시 프로필 로딩
 window.onload = function () {
