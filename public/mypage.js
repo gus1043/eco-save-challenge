@@ -92,12 +92,15 @@ async function getQuiz() {
 
 function checkAnswer(correctAnswer, userAnswer) {
     console.log(correctAnswer, userAnswer);
-    let message;
     if (correctAnswer === userAnswer) {
         Swal.fire({
-            icon: 'success',
+            imageUrl:
+                'https://em-content.zobj.net/source/microsoft-teams/363/clapping-hands_light-skin-tone_1f44f-1f3fb_1f3fb.png',
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Custom image',
             title: '정답입니다!',
-            timer: 1000, // 1초 후에 자동으로 닫힘
+            timer: 800, // 0.8초 후에 자동으로 닫힘
             showConfirmButton: false, // 확인 버튼 숨기기
             timerProgressBar: true, // 타이머 진행 표시줄 표시
             allowOutsideClick: false, // 바깥쪽 클릭으로 창을 닫지 못하도록 설정
@@ -106,9 +109,13 @@ function checkAnswer(correctAnswer, userAnswer) {
         });
     } else {
         Swal.fire({
-            icon: 'success',
+            imageUrl:
+                'https://em-content.zobj.net/source/microsoft-teams/363/supervillain_light-skin-tone_1f9b9-1f3fb_1f3fb.png',
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Custom image',
             title: '틀렸습니다!',
-            text: '이동합니다.',
+            text: `정답은 ${correctAnswer}!`,
             confirmButtonColor: '#19A337',
             confirmButtonText: '확인',
         });

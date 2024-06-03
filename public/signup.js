@@ -29,7 +29,11 @@ document.getElementById('form').addEventListener('submit', async (e) => {
         } else {
             // 서버에서 정의된 다른 상태 코드 처리
             await Swal.fire({
-                icon: 'error',
+                imageUrl:
+                    'https://em-content.zobj.net/source/microsoft-teams/363/woman-facepalming-light-skin-tone_1f926-1f3fb-200d-2640-fe0f.png',
+                imageWidth: 140,
+                imageHeight: 140,
+                imageAlt: 'Custom image',
                 title: '회원가입 실패',
                 confirmButtonColor: '#19A337',
                 confirmButtonText: '확인',
@@ -39,7 +43,11 @@ document.getElementById('form').addEventListener('submit', async (e) => {
         if (err.response && err.response.status === 409) {
             console.error(err);
             await Swal.fire({
-                icon: 'error',
+                imageUrl:
+                    'https://em-content.zobj.net/source/microsoft-teams/363/woman-facepalming-light-skin-tone_1f926-1f3fb-200d-2640-fe0f.png',
+                imageWidth: 140,
+                imageHeight: 140,
+                imageAlt: 'Custom image',
                 title: '회원가입 실패',
                 text: '이미 있는 이메일 입니다.',
                 confirmButtonColor: '#19A337',
@@ -48,7 +56,11 @@ document.getElementById('form').addEventListener('submit', async (e) => {
         } else {
             console.error(err);
             await Swal.fire({
-                icon: 'error',
+                imageUrl:
+                    'https://em-content.zobj.net/source/microsoft-teams/363/woman-facepalming-light-skin-tone_1f926-1f3fb-200d-2640-fe0f.png',
+                imageWidth: 140,
+                imageHeight: 140,
+                imageAlt: 'Custom image',
                 title: '회원가입 실패',
                 text: '회원가입 중 오류가 발생했습니다.',
                 confirmButtonColor: '#19A337',
