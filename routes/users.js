@@ -145,6 +145,7 @@ router
             const residence_info = await Residence_info.create({
                 user: req.user.email,
                 address: req.body.addressInput,
+                nickname: req.body.nickname,
                 house_structure: req.body.homestructure,
                 num_member: req.body.num_member,
                 electrical_appliance: req.body.elect_application,

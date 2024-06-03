@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const User_info = require('../models/user_info');
 const Residence_info = require('../models/residence_info');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -166,11 +167,11 @@ router.get('/countrychallenge', async (req, res, next) => {
         var shortenedAddress = parts.slice(0, 3).join(' ');
 
         console.log('되나', date, shortenedAddress);
-        const { Op } = require('sequelize');
 
         const countryInfo = await User_info.findAll({
             where: {
                 date: date,
+                user: { [Op.ne]: req.user.email },
             },
             include: [
                 {
@@ -219,7 +220,12 @@ router.get('/userschallenge', async (req, res, next) => {
         const date = userInfo[0].dataValues.date;
 
         const allusersInfo = await User_info.findAll({
-            where: { date: date },
+            where: { date: date, user: { [Op.ne]: req.user.email } },
+            include: [
+                {
+                    model: Residence_info,
+                },
+            ],
         });
 
         //전체 유저 평균?

@@ -218,17 +218,18 @@ async function getAllusersRank() {
     }
 }
 
-//차트 그리는 함수
 function drawChart2(myBill, avgBill, allUsers, chartname) {
-    // allUsers에서 상위 30개 bills를 추출
+    // allUsers에서 상위 30개 사용자의 닉네임과 전기요금을 추출
     const top30Users = allUsers.slice(0, 30).map((user) => ({
-        name: user.user,
+        name: user.Residence_info.nickname, // 사용자의 닉네임 가져오기
         bill: user.bill,
     }));
 
+    console.log(top30Users);
+
     // 차트 데이터 준비
     const chartData = {
-        labels: ['내 전기요금', '평균', ...top30Users.map((user) => user.name)],
+        labels: ['내 전기요금', '평균', ...top30Users.map((user) => user.name)], // 닉네임을 레이블로 사용
         datasets: [
             {
                 label: 'Bill Amount',
