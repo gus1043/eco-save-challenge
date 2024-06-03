@@ -16,6 +16,7 @@ const communityRouter = require('./routes/community');
 const usersRouter = require('./routes/users');
 const nationRouter = require('./routes/nationwide');
 const aireportRouter = require('./routes/aireport');
+const quizRouter = require('./routes/quiz');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/community', communityRouter);
 app.use('/users', usersRouter);
 app.use('/nationwide', nationRouter);
 app.use('/aireport', aireportRouter);
+app.use('/quiz', quizRouter);
 
 //404 에러처리 미들웨어
 app.use((req, res, next) => {
