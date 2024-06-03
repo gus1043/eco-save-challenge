@@ -206,13 +206,14 @@ document.getElementById('btn_done').addEventListener('click', async (e) => {
 
     const form = document.getElementById('form');
     const addressInput = form.addressInput.value;
+    const nickname = form.nickname.value;
     const homestructure = form.homestructure.value;
     const num_member = form.num_member.value;
     const elect_application = form.elect_application.value;
     const age = form.age.value;
     const agree = form.agree.checked;
 
-    if (!addressInput || !homestructure || !num_member || !elect_application) {
+    if (!addressInput || !nickname || !homestructure || !num_member || !elect_application) {
         return await Swal.fire({
             icon: 'error',
             title: '유저 정보 세팅 실패',
@@ -235,6 +236,7 @@ document.getElementById('btn_done').addEventListener('click', async (e) => {
         // 서버에 회원가입 요청
         const response = await axios.post('/users/residenceInfo', {
             addressInput,
+            nickname,
             homestructure,
             num_member,
             elect_application,
@@ -274,6 +276,7 @@ document.getElementById('btn_done').addEventListener('click', async (e) => {
 
     // 입력 폼 초기화
     form.addressInput.value = '';
+    form.nickname.value = '';
     form.homestructure.value = '';
     form.num_member.value = '';
     form.elect_application.value = '';
