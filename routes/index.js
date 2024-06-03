@@ -10,6 +10,7 @@ router.get('/', async (req, res, next) => {
     try {
         let bill = null;
         let userInfo = null;
+        let current = false;
 
         if (req.user !== undefined) {
             // 유저 정보 가져오기
@@ -22,13 +23,22 @@ router.get('/', async (req, res, next) => {
             if (userInfo && userInfo.bill !== null) {
                 // userInfo가 null이 아니고 bill이 null이 아닌 경우
                 bill = userInfo.bill;
+
+                // 현재 날짜 구하기
+                const now = new Date();
+                const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+                // userInfo.date와 현재 날짜 비교
+                if (userInfo.date === currentYearMonth) {
+                    current = true;
+                }
             }
         }
 
         console.log(req.user);
         console.log(userInfo);
 
-        res.render('home', { title: '홈', user: req.user, bill: bill });
+        res.render('home', { title: '홈', user: req.user, bill: bill, current: current });
     } catch (err) {
         console.error(err);
         next(err);

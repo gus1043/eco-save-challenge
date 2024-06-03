@@ -19,7 +19,7 @@
                             <h3 id="report-title">나의 요금</h3>
                             <div class="mybill">
                                 <div>
-                                    <% if (bill) { %>
+                                    <% if (bill && current) { %>
                                     <div class="split-container">
                                         <div class="left-half">
                                             <img
@@ -30,7 +30,18 @@
                                             <h1><%= bill %>원</h1>
                                         </div>
                                     </div>
-
+                                    <% } else if (bill && !current) { %>
+                                    <div class="split-container">
+                                        <div class="left-half">
+                                            <img
+                                                src="https://em-content.zobj.net/source/microsoft-teams/363/money-with-wings_1f4b8.png"
+                                            />
+                                        </div>
+                                        <div class="right-half">
+                                            <h1><%= bill %>원</h1>
+                                            <button id="registerButton">이번달 요금 등록하기</button>
+                                        </div>
+                                    </div>
                                     <% } else { %>
                                     <h2>아직 요금이 등록되지 않았습니다!</h2>
                                     <button id="registerButton">요금 등록하고 시작하기</button>
