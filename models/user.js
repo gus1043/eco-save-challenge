@@ -11,7 +11,7 @@ class User extends Sequelize.Model {
                 },
                 password: {
                     type: Sequelize.TEXT,
-                    allowNull: false,
+                    allowNull: true,
                 },
                 name: {
                     type: Sequelize.TEXT,

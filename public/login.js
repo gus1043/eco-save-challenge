@@ -82,3 +82,7 @@ document.getElementById('form').addEventListener('submit', async (e) => {
     e.target.email.value = '';
     e.target.password.value = '';
 });
+
+document.getElementById('kakaoLogin').addEventListener('click', function () {
+    window.location.href = '/users/kakao';
+});

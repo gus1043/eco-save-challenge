@@ -72,7 +72,7 @@ document.getElementById('form').addEventListener('submit', async (e) => {
                 imageHeight: 140,
                 imageAlt: 'Custom image',
                 title: '회원가입 실패',
-                text: '이미 있는 이메일 입니다.',
+                text: `${err.response.data.error}`,
                 confirmButtonColor: '#19A337',
                 confirmButtonText: '확인',
             });
