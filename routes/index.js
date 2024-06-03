@@ -173,6 +173,7 @@ router.get('/countrychallenge', async (req, res, next) => {
                 date: date,
                 user: { [Op.ne]: req.user.email },
             },
+            order: [['bill', 'ASC']],
             include: [
                 {
                     model: Residence_info,
@@ -221,6 +222,7 @@ router.get('/userschallenge', async (req, res, next) => {
 
         const allusersInfo = await User_info.findAll({
             where: { date: date, user: { [Op.ne]: req.user.email } },
+            order: [['bill', 'ASC']],
             include: [
                 {
                     model: Residence_info,
