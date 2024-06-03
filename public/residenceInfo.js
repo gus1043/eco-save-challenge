@@ -262,10 +262,13 @@ document.getElementById('btn_done').addEventListener('click', async (e) => {
                 imageAlt: 'Custom image',
                 title: '유저 정보 세팅 완료!',
                 text: '메인 페이지로 이동합니다.',
-                confirmButtonColor: '#19A337',
-                confirmButtonText: '확인',
+                timer: 800, // 0.8초 후에 자동으로 닫힘
+                showConfirmButton: false, // 확인 버튼 숨기기
+                timerProgressBar: true, // 타이머 진행 표시줄 표시
+                allowOutsideClick: false, // 바깥쪽 클릭으로 창을 닫지 못하도록 설정
+            }).then(() => {
+                window.location.href = '/'; // 메인 페이지로 이동
             });
-            window.location.href = '/'; // 메인 페이지로 이동
         } else {
             // 서버에서 정의된 다른 상태 코드 처리
             await Swal.fire({
