@@ -51,8 +51,8 @@ async function getReport() {
             document.getElementById('report').innerHTML = marked.parse(aireport.report);
             document.getElementById('consult').innerHTML = marked.parse(aireport.consult);
         } else {
-            document.getElementById('report').textContent = '3213213';
-            document.getElementById('consult').textContent = '3213213';
+            document.getElementById('report').textContent = '절약 리포트 생성 중입니다. ';
+            document.getElementById('consult').textContent = 'AI 절약 리포트 생성 중입니다. ';
             const response = await axios.post('/aireport');
             // 페이지 새로고침
             if (response.status === 200) {
