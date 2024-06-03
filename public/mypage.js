@@ -40,19 +40,62 @@ async function getReport() {
         } else {
             document.getElementById('report').textContent = '3213213';
             document.getElementById('consult').textContent = '3213213';
-            await axios.post('/aireport');
+            const response = await axios.post('/aireport');
             // 페이지 새로고침
-            window.location.reload();
+            if (response.status === 200) {
+                window.location.reload();
+            }
         }
     } catch (err) {
         console.error(err);
     }
 }
 
+// 퀴즈 로드
+async function getQuiz() {
+    try {
+        const res = await axios.get('/quizes');
+        const quiz = res.data;
+
+        // 퀴즈 데이터를 HTML 요소에 채워넣기
+        document.getElementById('question').textContent = quiz.question;
+        document.getElementById('answer-input').value = ''; // 이전 답변 초기화
+
+        // "제출" 버튼 활성화
+        document.getElementById('submit-btn').classList.remove('hide');
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+// 답변 제출
+function submitAnswer() {
+    const userAnswer = document.getElementById('answer-input').value;
+
+    // 서버로 답변 전송 및 정답 여부 확인
+    axios
+        .post('/check-answer', { answer: userAnswer })
+        .then((res) => {
+            if (res.data.correct) {
+                alert('정답입니다!');
+            } else {
+                alert('틀렸습니다. 정답은 ' + res.data.correctAnswer + ' 입니다.');
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            alert('서버 에러가 발생했습니다.');
+        });
+}
+
+// "제출" 버튼 클릭 시 답변 제출
+document.getElementById('submit-btn').addEventListener('click', submitAnswer);
+
 // 페이지 로드 시 프로필 로딩
 window.onload = function () {
     getProfile();
     getReport();
+    getQuiz();
 };
 
 // 프로필 수정 버튼 클릭 이벤트 리스너 추가

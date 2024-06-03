@@ -97,6 +97,10 @@ router
                 { consult: consult, report: report },
                 { where: { user: req.user.email, date: userInfo[0].dataValues.date } }
             );
+            // 수정된 정보를 클라이언트에 반환
+            res.status(200).json({
+                message: '컨설트 내용을 성공적으로 업데이트되었습니다.',
+            });
         } catch (err) {
             console.error(err);
             next(err);
