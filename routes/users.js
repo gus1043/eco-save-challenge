@@ -204,9 +204,12 @@ router
             });
 
             console.log('제발:', userInfo);
+
             let date = null;
-            if (userInfo[0].date) {
-                date = userInfo[0].date;
+            let bill = null;
+            if (userInfo[0].User_info) {
+                date = userInfo[0].User_info.date;
+                bill = userInfo[0].User_info.bill;
             }
             const age = userInfo[0].age;
             const address = userInfo[0].address;
@@ -262,6 +265,7 @@ router
 
             res.json({
                 date: date,
+                bill: bill,
                 saveBill: saveBill,
                 age: age,
                 address: address,
