@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // 프로필 로드
 async function getProfile() {
     try {
-        const res = await axios.get('/users/mypage/profile');
+        const res = await axios.get('/users/profile');
         const profile = res.data;
 
         // 데이터를 HTML 요소에 채워넣기
@@ -18,6 +18,8 @@ async function getProfile() {
         document.getElementById('num_member').value = profile.num_member;
         document.getElementById('elect_application').value = profile.electrical_appliance;
         document.getElementById('age').value = profile.age;
+        document.getElementById('bill').src = `https://em-content.zobj.net/source/microsoft-teams/363/${profile.image}`;
+        document.getElementById('report-title').textContent = month + `${profile.date}월 절약리포트`;
     } catch (err) {
         console.error(err);
     }

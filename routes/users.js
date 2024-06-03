@@ -185,11 +185,83 @@ router.get('/mypage', isLoggedIn, async (req, res, next) => {
 
 //마이페이지 - 프로필 불러오기
 router
-    .route('/mypage/profile')
+    .route('/profile')
     .get(async (req, res, next) => {
         try {
-            const residenceInfo = await Residence_info.findOne({ where: { user: req.user.email } });
-            res.json(residenceInfo);
+            const userInfo = await User_info.findAll({
+                where: { user: req.user.email },
+                order: [['date', 'DESC']],
+                limit: 2,
+                include: [
+                    {
+                        model: Residence_info,
+                    },
+                ],
+            });
+
+            const date = userInfo[0].dataValues.date;
+            const age = userInfo[0].dataValues.Residence_info.dataValues.age;
+            const address = userInfo[0].dataValues.Residence_info.dataValues.address;
+            const electrical_appliance = userInfo[0].dataValues.Residence_info.dataValues.electrical_appliance;
+            const num_member = userInfo[0].dataValues.Residence_info.dataValues.num_member;
+            const house_structure = userInfo[0].dataValues.Residence_info.dataValues.house_structure;
+
+            //지난달보다 아낀 수
+            if (userInfo.length === 2) {
+                const latestBill = userInfo[0].dataValues.bill;
+                const previousBill = userInfo[1].dataValues.bill;
+                saveBill = latestBill - previousBill;
+                console.log('지난 달보다 아낀 정도:', saveBill);
+            } else {
+                saveBill = null;
+            }
+
+            // 이미지를 매핑하는 객체
+            const imageMap = {
+                savedALot: [
+                    'face-savoring-food_1f60b.png',
+                    'partying-face_1f973.png',
+                    'hugging-face_1f917.png',
+                    'smiling-face-with-hearts_1f970.png',
+                    'unicorn_1f984.png',
+                ],
+                overspent: [
+                    'face-with-steam-from-nose_1f624.png',
+                    'loudly-crying-face_1f62d.png',
+                    'melting-face_1fae0.png',
+                    'face-with-spiral-eyes_1f635-200d-1f4ab.png',
+                    'dizzy-face_1f635.png',
+                ],
+                average: ['nerd-face_1f913.png', 'cat-face_1f431.png', 'cowboy-hat-face_1f920.png', 'frog_1f438.png'],
+            };
+
+            // 이미지를 랜덤으로 선택하는 함수
+            function getRandomImage(category) {
+                const images = imageMap[category];
+                const randomIndex = Math.floor(Math.random() * images.length);
+                return images[randomIndex];
+            }
+
+            // 돈을 얼마나 아꼈는지에 따라 이미지를 선택(기준은  +-5000원, 이전 기록이 없을 시 평균 이미지)
+            let selectedImage = '';
+            if (saveBill <= -5000) {
+                selectedImage = getRandomImage('savedALot');
+            } else if (saveBill >= 5000) {
+                selectedImage = getRandomImage('overspent');
+            } else {
+                selectedImage = getRandomImage('average');
+            }
+
+            res.json({
+                date: date,
+                saveBill: saveBill,
+                age: age,
+                address: address,
+                electrical_appliance: electrical_appliance,
+                num_member: num_member,
+                house_structure: house_structure,
+                image: selectedImage,
+            });
         } catch (err) {
             console.error(err);
             next(err);
@@ -236,14 +308,5 @@ router
             next(err);
         }
     });
-
-// 마이페이지 - ai 리포트
-router.get('/mypage/aireport', isLoggedIn, async (req, res, next) => {
-    try {
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
 
 module.exports = router;
