@@ -17,9 +17,14 @@ module.exports = new KakaoStrategy(
                 console.log('___kakao exUser', exUser);
                 done(null, exUser);
             } else {
+                let name = profile.displayName;
+                const email = profile._json && profile._json.kakao_account.email;
+                if (name === '미연동 계정') {
+                    name = `${email.split('@')[0]}(kakao)`;
+                }
                 const newUser = await User.create({
-                    email: profile._json && profile._json.kakao_account.email,
-                    name: profile.displayName,
+                    email: email,
+                    name: name,
                     snsId: profile.id,
                     provider: 'kakao',
                 });

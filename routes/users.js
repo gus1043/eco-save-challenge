@@ -123,8 +123,16 @@ router.get(
     passport.authenticate('kakao', {
         failureRedirect: '/',
     }),
-    (req, res) => {
-        res.redirect('/');
+    async (req, res) => {
+        // user.id를 사용하여 residence_info를 조회 후 리다이렉트 조절
+        const residenceInfo = await Residence_info.findOne({ where: { user: req.user.email } });
+        console.log('residence_info:', residenceInfo);
+
+        if (residenceInfo == null) {
+            res.redirect('/users/residenceInfo');
+        } else {
+            res.redirect('/');
+        }
     }
 );
 
