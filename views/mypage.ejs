@@ -80,6 +80,8 @@
                             <div class="tile-header">
                                 <i class="ph-lightning-light"></i>
                                 <h3 id="report-title">절약 리포트</h3>
+                            </div>
+                            <div class="tile-content">
                                 <h4 id="report"></h4>
                             </div>
                         </div>
@@ -87,6 +89,8 @@
                             <div class="tile-header">
                                 <i class="ph-fire-simple-light"></i>
                                 <h3>AI 절약 컨설팅</h3>
+                            </div>
+                            <div class="tile-content">
                                 <h4 id="consult"></h4>
                             </div>
                         </div>
@@ -102,7 +106,8 @@
         </div>
 
         <footer><%- include('./footer'); %></footer>
-
+        <!-- 마크업을 사용 하기위한 모듈 추가 -->
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/mypage.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

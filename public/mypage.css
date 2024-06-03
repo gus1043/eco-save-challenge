@@ -1,5 +1,3 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-
 html,
 body {
     height: 100%;
@@ -16,7 +14,7 @@ body {
 
 .container {
     width: 70%;
-    margin: 0 auto; /* 가운데 정렬 */
+    margin: 0 auto; /* Center alignment */
     flex: 1;
 }
 
@@ -38,6 +36,7 @@ body {
 .single-tile {
     padding: 1rem;
     border-radius: 8px;
+    height: 300px;
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -49,6 +48,11 @@ body {
     color: var(--c-gray-900);
 }
 
+.tile-content {
+    flex: 1;
+    overflow-y: auto; /* 수직 스크롤바 추가 */
+}
+
 .tile:hover,
 .single-tile:hover {
     transform: translateY(-5px);
@@ -56,7 +60,7 @@ body {
 
 .tile-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .tile-header i {
@@ -78,6 +82,7 @@ body {
     font-size: 0.825em;
     font-weight: 200;
 }
+
 .user-info {
     display: flex;
     height: 240px;
@@ -86,6 +91,7 @@ body {
 .left-half {
     flex: 1.5;
 }
+
 .right-half {
     flex: 2;
 }
@@ -96,14 +102,14 @@ body {
 }
 
 .button p {
-    margin: 0 10px; /* 각 항목 사이의 여백 설정 */
+    margin: 0 10px; /* Set spacing between items */
 }
 
 .pseudo-search {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    position: relative; /* 부모 요소를 relative로 설정 */
+    position: relative; /* Set parent element to relative */
 }
 
 #addressInput {
@@ -124,7 +130,7 @@ body {
     top: 50%;
     height: 32px;
     right: 6px;
-    background-color: transparent; /* 배경 투명하게 설정 */
+    background-color: transparent; /* Set background to transparent */
     border: 0;
 }
 
@@ -132,6 +138,7 @@ body {
     display: flex;
     margin-bottom: 10px;
 }
+
 .input_wrap input,
 .input_wrap select {
     flex: 1;
@@ -147,17 +154,17 @@ body {
 .input_wrap input:focus,
 .input_wrap select:focus,
 #addressInput:focus {
-    border-color: #19a337; /* 포커스 상태일 때 테두리 색상 변경 */
+    border-color: #19a337; /* Change border color on focus */
 }
 
 .button {
     display: flex;
-    justify-content: space-between; /* 왼쪽과 오른쪽 끝으로 정렬 */
-    align-items: center; /* 버튼들을 수직 중앙 정렬 */
+    justify-content: space-between; /* Align to the left and right ends */
+    align-items: center; /* Vertically align buttons */
 }
 
 #editProfile {
-    margin-right: auto; /* 왼쪽에 위치하도록 설정 */
+    margin-right: auto; /* Align to the left */
 }
 
 .button button {
@@ -173,4 +180,21 @@ body {
 
 .button button:hover {
     background: #9bf09d;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: white;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #bfc0c0;
 }

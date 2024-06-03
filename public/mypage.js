@@ -33,8 +33,8 @@ async function getReport() {
 
         if (aireport.consult !== null) {
             //컨설트 내용이 있다면
-            document.getElementById('report').textContent = aireport.report;
-            document.getElementById('consult').textContent = aireport.consult;
+            document.getElementById('report').innerHTML = marked.parse(aireport.report);
+            document.getElementById('consult').innerHTML = marked.parse(aireport.consult);
         } else {
             document.getElementById('report').textContent = '3213213';
             document.getElementById('consult').textContent = '3213213';
