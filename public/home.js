@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // 기본 리포트 로드
-// 기본 리포트 로드
 async function getPercent() {
     try {
         const res = await axios.get('/mychallenge');
