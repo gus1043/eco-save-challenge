@@ -95,7 +95,7 @@ function checkAnswer(correctAnswer, userAnswer) {
     if (correctAnswer === userAnswer) {
         Swal.fire({
             imageUrl:
-                'https://em-content.zobj.net/source/microsoft-teams/363/clapping-hands_light-skin-tone_1f44f-1f3fb_1f3fb.png',
+                'https://em-content.zobj.net/source/microsoft-teams/363/man-superhero-light-skin-tone_1f9b8-1f3fb-200d-2642-fe0f.png',
             imageWidth: 100,
             imageHeight: 100,
             imageAlt: 'Custom image',
