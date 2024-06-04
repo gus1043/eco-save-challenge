@@ -126,6 +126,7 @@ function checkAnswer(correctAnswer, userAnswer) {
 window.onload = function () {
     getProfile();
     getQuiz();
+    get3MonthReport();
 };
 
 // 프로필 수정 버튼 클릭 이벤트 리스너 추가
@@ -234,3 +235,59 @@ document.getElementById('delete').addEventListener('click', async () => {
         console.error('로그아웃 오류:', error);
     }
 });
+
+//3개월 리포트
+
+async function get3MonthReport() {
+    try {
+        const res = await axios.get('/users/3month');
+
+        console.log(res.data);
+        if (res.data.apibill !== null) {
+            drawChart(res.data.date, res.data.mybill, res.data.countrybill, res.data.apibill);
+        } else {
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+function drawChart(date, mybill, country, api) {
+    if (mybill == null) {
+        mybill = 0;
+    }
+    var ctx = document.getElementById('percentchcart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', // 차트 유형
+        data: {
+            labels: ['내 이용요금', 'EcoSave 이용자 동네 평균', '실제 동네 평균'], // X축 레이블
+            datasets: [
+                {
+                    label: `${date}월 리포트`, // 차트 제목
+                    data: [mybill, country, api], // 데이터 포인트
+                    backgroundColor: [
+                        '#9BF09D', // 각 바의 배경색
+                        '#D9D9D9',
+                        '#D9D9D9',
+                    ],
+                    borderRadius: 5,
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            indexAxis: 'y', // 차트를 가로로 변경
+            plugins: {
+                legend: {
+                    // 범례 사용 안 함
+                    display: false,
+                },
+            },
+            scales: {
+                x: {
+                    beginAtZero: true, // X축을 0부터 시작
+                },
+            },
+        },
+    });
+}

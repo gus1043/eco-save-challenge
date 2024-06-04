@@ -20,8 +20,9 @@ body {
 
 .tiles {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     column-gap: 1rem;
+    width: 100%;
     row-gap: 1rem;
     margin-top: 1.25rem;
 }
@@ -212,7 +213,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 80%;
 }
 
 .quiz-content h2 {
@@ -222,9 +223,9 @@ body {
 
 .controls {
     display: flex;
-    margin-top: 50px;
-    width: 600px;
+    margin-top: 30px;
     justify-content: space-between;
+    width: 60%;
 }
 
 .controls button {
@@ -233,7 +234,7 @@ body {
     cursor: pointer;
     outline: none;
     border: 0;
-    width: 200px;
+    width: 150px;
     vertical-align: middle;
     text-decoration: none;
     font-family: inherit;
