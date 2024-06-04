@@ -1,4 +1,4 @@
-//위키버튼 누르면 수정 폼 보이도록
+// 위키버튼 누르면 수정 폼 보이도록
 document.getElementById('edit').addEventListener('click', function () {
     const form = document.getElementById('wiki-form');
     const wikiContent = document.getElementById('wiki-content');
@@ -38,7 +38,7 @@ async function getWiki() {
             contentDiv.innerHTML = marked.parse(wiki.content);
 
             // 'created-at'을 올바르게 참조하고, 날짜 객체를 생성합니다.
-            const date = new Date(wiki.created_at); // 수정된 부분
+            const date = new Date(wiki.created_at);
             dateDiv.textContent = `작성 날짜: ${date.toLocaleDateString()}`;
             contentDiv.appendChild(dateDiv); // dateDiv를 contentDiv에 추가
             wikiContentDiv.appendChild(contentDiv);
@@ -51,7 +51,7 @@ async function getWiki() {
 // 페이지 로드 시 위키 내용 로딩
 window.onload = getWiki;
 
-// 위키 등록 시
+// 위키 등록 폼 처리
 document.getElementById('wiki-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const content = e.target.wiki.value;

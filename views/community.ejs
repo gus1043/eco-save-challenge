@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/community.css" />
     </head>
 
-    <body>
+    <body data-user="<%= user %>">
         <header><%- include('./header'); %></header>
         <div class="container">
             <!-- 절약 위키 화면 구현 -->
@@ -32,16 +32,43 @@
             </div>
             <!--왼쪽 오른쪽 구분 선 -->
             <div class="divider"></div>
-            <div class="right">오</div>
+            <div class="right">
+                <fieldset>
+                    <legend>채팅 내용</legend>
+                    <div id="chat-list" style="overflow-y: scroll; height: 300px">
+                        <% chats.forEach(function(chat) { %> <% if (chat.user === user) { %>
+                        <div class="mine" style="color: <%=chat.user%>">
+                            <div><%= chat.chat %></div>
+                        </div>
+                        <% } else { %>
+                        <div class="other" style="color: <%=chat.user%>">
+                            <div><%= chat.chat %></div>
+                        </div>
+                        <% } %> <% }); %>
+                        <ul id="messages"></ul>
+                    </div>
+                </fieldset>
+                <form id="chat-form">
+                    <label for="chat">채팅 메시지</label>
+
+                    <form action="">
+                        <input id="m" autocomplete="off" />
+                        <button>보내기</button>
+                    </form>
+                </form>
+            </div>
         </div>
 
         <footer>
             <header><%- include('./footer'); %></header>
         </footer>
-
+        <!-- socket io -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
         <!-- 마크업을 사용 하기위한 모듈 추가 -->
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="/wiki.js"></script>
+        <script src="/chat.js"></script>
     </body>
 </html>

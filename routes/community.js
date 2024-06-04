@@ -1,10 +1,37 @@
 const express = require('express');
 const Wiki = require('../models/wiki');
+const Chat = require('../models/chat');
 
 const router = express.Router();
-router.route('/').get(async (req, res, next) => {
-    res.render('community', { title: '커뮤니티', user: req.user });
-});
+router
+    .route('/')
+    .get(async (req, res, next) => {
+        let chats; // chats 변수를 블록 외부에서 선언
+        try {
+            // 전체 데이터를 가져오기
+            chats = await Chat.findAll();
+        } catch (err) {
+            console.error(err);
+            next(err);
+            return; // 에러가 발생했을 때 이후 코드를 실행하지 않도록 return
+        }
+
+        console.log('유저는? ', req.session.color);
+        res.render('community', { title: '커뮤니티', chats: chats, user: req.session.color });
+    })
+    .post(async (req, res, next) => {
+        try {
+            // 채팅 메시지를 데이터베이스에 저장
+            const chat = await Chat.create({
+                user: req.session.color,
+                chat: req.body.chat,
+            });
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
+    });
+
 router
     .route('/wikis')
     .get(async (req, res, next) => {

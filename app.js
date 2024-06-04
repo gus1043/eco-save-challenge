@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const ColorHash = require('color-hash').default;
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const usersRouter = require('./routes/users');
 const nationRouter = require('./routes/nationwide');
 const aireportRouter = require('./routes/aireport');
 const quizRouter = require('./routes/quiz');
+const websocket = require('./socket');
 
 const app = express();
 
@@ -38,17 +40,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(
-    session({
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.COOKIE_SECRET,
-        cookie: {
-            httpOnly: true,
-            secure: false,
-        },
-    })
-);
+const sessionMiddleware = session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+    },
+});
+
+app.use(sessionMiddleware);
+
+app.use((req, res, next) => {
+    if (!req.session.color) {
+        const colorHash = new ColorHash();
+        req.session.color = colorHash.hex(req.sessionID);
+        console.log(req.session.color, req.sessionID);
+    }
+    next();
+});
 
 // passport 초기화 & 세션 미들웨어 실행
 app.use(passport.initialize());
@@ -73,6 +84,8 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(app.get('port'), () => {
+const server = app.listen(app.get('port'), () => {
     console.log(`http://localhost:${app.get('port')}에서 대기중`);
 });
+
+websocket(server, app, sessionMiddleware);
