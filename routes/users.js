@@ -6,6 +6,7 @@ const Residence_info = require('../models/residence_info');
 const bcrypt = require('bcrypt');
 const passport = require('../passport/index.js');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const { Op } = require('sequelize');
 
 // 공공 api를 받아오기위한 모듈 추가
 const axios = require('axios');
@@ -223,7 +224,7 @@ router
                 ],
             });
 
-            console.log('제발:', userInfo);
+            console.log('유저인포:', userInfo);
 
             let date = null;
             let bill = null;
@@ -428,9 +429,34 @@ router.get('/3month', async (req, res, next) => {
             apibill = apidata;
         }
 
+        //3개월전 동네 평균
+        const countryInfo = await User_info.findAll({
+            where: {
+                date: my3agodate,
+            },
+            include: [
+                {
+                    model: Residence_info,
+                    where: {
+                        address: {
+                            [Op.like]: '%' + address + '%', // '%'는 와일드카드로 사용됩니다.
+                        },
+                    },
+                },
+            ],
+        });
+
+        console.log('동네인포:', countryInfo);
+
+        //동네평균?
+        const bills = countryInfo.map((info) => info.bill);
+        const averageBill = bills.reduce((total, bill) => total + bill, 0) / bills.length;
+        console.log('bill 값의 평균:', averageBill);
+
         res.json({
             date: my3agodate,
             mybill: my3agobill,
+            countrybill: averageBill,
             apibill: apibill,
         });
     } catch (err) {
