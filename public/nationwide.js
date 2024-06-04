@@ -94,6 +94,7 @@ function renderChart(canvasId, label, currentData, lastYearData, year) {
                     data: currentData.map((item) => item.bill),
                     backgroundColor: 'rgba(21, 122, 44, 1)',
                     // borderColor: 'rgba(75, 192, 192, 1)',
+                    borderRadius: 5,
                     borderWidth: 1,
                 },
                 {
@@ -101,6 +102,7 @@ function renderChart(canvasId, label, currentData, lastYearData, year) {
                     data: lastYearData.map((item) => item.bill),
                     backgroundColor: 'rgba(32, 201, 104, 1)',
                     // borderColor: 'rgba(75, 192, 192, 1)',
+                    borderRadius: 5,
                     borderWidth: 1,
                 },
             ],
