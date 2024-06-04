@@ -7,7 +7,17 @@ const bcrypt = require('bcrypt');
 const passport = require('../passport/index.js');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
+// 공공 api를 받아오기위한 모듈 추가
+const axios = require('axios');
+const { parseStringPromise } = require('xml2js');
+
 const router = express.Router();
+
+const OPEN_API_KEY = process.env.OPEN_API_KEY;
+const endpoint = 'https://bigdata.kepco.co.kr/openapi/v1/powerUsage/houseAve.do';
+
+const OPEN_API_KEY_SIGUNGU = process.env.OPEN_API_KEY_SIGUNGU;
+const endpoint_sigungu = 'http://apis.data.go.kr/1741000/StanReginCd/getStanReginCdList';
 
 // req.user의 사용자 데이터를 ejs에서 이용가능하도록 res.locals에 저장
 router.use((req, res, next) => {
@@ -330,5 +340,103 @@ router
             next(err);
         }
     });
+
+//3개월 전 리포트
+router.get('/3month', async (req, res, next) => {
+    try {
+        const userInfo = await User_info.findAll({
+            where: { user: req.user.email },
+            order: [['date', 'DESC']],
+            limit: 4,
+            include: [
+                {
+                    model: Residence_info,
+                },
+            ],
+        });
+
+        console.log('유저인포: ', userInfo);
+
+        //비교를 위한 현재 연월
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+        // 3개월 전 날짜 yyyy-mm으로 가져오기
+        const threeagoyear = threeMonthsAgo.getFullYear();
+        let threeagomonth = threeMonthsAgo.getMonth() + 1;
+        threeagomonth = threeagomonth < 10 ? '0' + threeagomonth : threeagomonth;
+        const formattedDate = `${threeagoyear}-${threeagomonth}`;
+        console.log('3개월전은? ', formattedDate);
+
+        // 3개월 전이면서 가장 최신 데이터 가져오기
+        let relevantRecord = null;
+        userInfo.forEach((record) => {
+            const recordDate = new Date(record.dataValues.date);
+            if (recordDate <= threeMonthsAgo) {
+                if (!relevantRecord || recordDate > new Date(record.dataValues.date)) {
+                    relevantRecord = record;
+                }
+            }
+        });
+        let my3agobill = '';
+        let my3agodate = '';
+        let my3agoyear = '';
+        let my3agomonth = '';
+
+        if (relevantRecord) {
+            //3개월 전데이터 있을떄
+            my3agobill = relevantRecord.bill;
+            my3agodate = relevantRecord.date;
+            my3agoyear = my3agodate.split('-')[0];
+            my3agomonth = my3agodate.split('-')[1];
+        } else {
+            my3agobill = null;
+        }
+
+        console.log('나의 3개월 전 데이터:', my3agodate, my3agobill);
+
+        //주소 정보 가져오기
+        let address = userInfo[0].dataValues.Residence_info.dataValues.address;
+        address = `${address.split(' ')[1]} ${address.split(' ')[2]}`; //~시~구 까지 가져오기
+
+        console.log('주소: ', address);
+
+        const apiUrl_sigungu = `${endpoint_sigungu}?serviceKey=${OPEN_API_KEY_SIGUNGU}&type=xml&pageNo=1&numOfRows=3&locatadd_nm=${address}`;
+
+        const responseaddress = await axios.get(apiUrl_sigungu);
+        const xmlData = responseaddress.data;
+
+        // XML 데이터로 들어옴
+        const result = await parseStringPromise(xmlData);
+
+        // 첫번째 껄로 시, 구 법정코드 뽑기
+        const firstRow = result.StanReginCd.row[0];
+        const sido_cd = firstRow.sido_cd[0];
+        const sgg_cd = firstRow.sgg_cd[0];
+        console.log(`sido_cd: ${sido_cd}, sgg_cd: ${sgg_cd}`);
+
+        const apiUrl = `${endpoint}?year=${my3agoyear}&month=${my3agomonth}&metroCd=${sido_cd}&cityCd=${sgg_cd}&apiKey=${OPEN_API_KEY}&returnType=json`;
+
+        const response = await axios.get(apiUrl);
+        const data = response.data.data;
+        const apidata = data[0].bill;
+
+        let apibill = null;
+        if (apidata) {
+            apibill = apidata;
+        }
+
+        res.json({
+            date: my3agodate,
+            mybill: my3agobill,
+            apibill: apibill,
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 module.exports = router;
