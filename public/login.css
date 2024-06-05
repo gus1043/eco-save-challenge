@@ -16,7 +16,7 @@
     min-height: 100dvh;
 }
 
-.logo {
+.wrapper .logo {
     width: 25%;
     height: 25%;
     margin-bottom: 3%;
