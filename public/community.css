@@ -8,9 +8,13 @@ html {
     flex-direction: column;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     display: flex;
-    width: 100%;
     width: 70%;
     margin: 0 auto; /* 가운데 정렬 */
     height: calc(100vh - 115px);
@@ -26,6 +30,7 @@ html {
     float: right;
     margin-left: 10px;
 }
+
 .container .divider {
     width: 0.5px;
     background-color: black; /* 왼쪽 배경색 */
@@ -36,20 +41,28 @@ html {
     display: flex;
     justify-content: space-between;
     text-align: center;
+    margin-bottom: 0px;
 }
 .title-container {
     flex-grow: 1;
+    margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 .title {
     border-radius: 5px;
+    margin-bottom: 0px;
     display: inline-block; /* This makes the title only take up the space it needs */
 }
 .edit-container {
     padding-right: 20px;
     padding-top: 20px;
+    margin-bottom: 0px;
 }
 .edit-container p {
     margin: 0;
+}
+#wiki-form {
+    margin-bottom: 0px;
 }
 
 .btn {
@@ -89,9 +102,7 @@ html {
 }
 
 /* 채팅창 css */
-* {
-    box-sizing: border-box;
-}
+
 .mine {
     text-align: right;
 }
@@ -132,12 +143,61 @@ html {
     text-align: right;
 }
 label[for='gif'],
-#chat,
-#chat-form [type='submit'] {
-    display: inline-block;
-    height: 30px;
-    vertical-align: top;
+.right {
+    width: 49%;
+    float: right;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; /* 내부 여백 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(219, 198, 198, 0.1); /* 그림자 효과 */
 }
+
+.right .title {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+/* 채팅 내용 스타일 */
+#chat-list {
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff; /* 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 채팅 입력 폼 스타일 */
+#chat-form {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 요소 사이의 간격 */
+}
+
+#chat-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#chat-form button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+#chat-form button:hover {
+    background-color: #0056b3;
+}
+
 label[for='gif'] {
     cursor: pointer;
     padding: 5px;
