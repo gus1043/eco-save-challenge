@@ -5,24 +5,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('chat-form');
     const input = document.getElementById('m');
     const messages = document.getElementById('messages');
+    const messageEnd = document.getElementById('message-end'); // 스크롤 위치를 위한 요소
+
+    const scrollToBottom = () => {
+        messageEnd.scrollIntoView({ behavior: 'smooth' });
+    };
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const msg = { color: currentUser, message: input.value }; // 사용자 색상 포함
+        const msg = { color: currentUser, message: input.value };
 
-        socket.emit('chat-msg', msg);
-        axios.post('/community', {
-            color: currentUser,
-            chat: input.value,
-        });
+        if (input.value) {
+            socket.emit('chat-msg', msg);
+            axios.post('/community', {
+                color: currentUser,
+                chat: input.value,
+            });
+        }
 
         input.value = '';
+
+        // 메시지가 추가된 후 스크롤을 맨 아래로 이동
+        scrollToBottom();
     });
 
     socket.on('chat-msg', (msg) => {
         // 새 메시지를 위한 div 요소 생성
         const messageDiv = document.createElement('div');
-        // 새 메시지의 내용을 담을 div 요소 생성
         const messageContent = document.createElement('div');
         messageContent.textContent = msg.message;
 
@@ -37,5 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 메시지 목록에 새 메시지 추가
         messages.appendChild(messageDiv);
+
+        // 메시지가 추가된 후 스크롤을 맨 아래로 이동
+        scrollToBottom();
     });
+
+    // 초기 로드 시 스크롤을 맨 아래로 이동
+    scrollToBottom();
 });

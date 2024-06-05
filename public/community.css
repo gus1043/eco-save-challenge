@@ -1,3 +1,13 @@
+:root {
+    --primary: #19a337;
+    --secondary: #bfc0c0;
+    --white: #fff;
+    --text-clr: #5b6475;
+    --header-clr: #25273d;
+    --next-btn-hover: #9bf09d;
+    --back-btn-hover: #8b8c8c;
+}
+
 body,
 html {
     margin: 0;
@@ -62,16 +72,29 @@ body {
     margin: 0;
 }
 #wiki-form {
+    margin-top: 10px;
     margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
-.btn {
-    background-color: #19a337;
-    color: white;
+#wiki-form fieldset {
+    border-radius: 10px;
+    border-color: var(--secondary);
+}
+
+button {
+    padding: 5px 15px;
+    border-radius: 4px;
     border: none;
-    border-radius: 5px;
+    background-color: var(--primary);
+    color: white;
     cursor: pointer;
-    margin: 0px;
+}
+
+button:hover {
+    background-color: #337a2c;
 }
 
 #wiki {
@@ -189,13 +212,13 @@ label[for='gif'],
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
-    background-color: #007bff;
+    background-color: #19a337;
     color: white;
     cursor: pointer;
 }
 
 #chat-form button:hover {
-    background-color: #0056b3;
+    background-color: #337a2c;
 }
 
 label[for='gif'] {
@@ -211,4 +234,21 @@ table td {
     text-align: center;
     border: 1px solid silver;
     border-collapse: collapse;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: white;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: var(--secondary);
 }
