@@ -17,7 +17,7 @@ router
         }
 
         console.log('유저는? ', req.session.color);
-        res.render('community', { title: '커뮤니티', chats: chats, user: req.session.color });
+        res.render('community', { title: '커뮤니티', chats: chats, user: req.user, color: req.session.color });
     })
     .post(async (req, res, next) => {
         try {

@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/community.css" />
     </head>
 
-    <body data-user="<%= user %>">
+    <body data-user="<%= color %>">
         <header><%- include('./header'); %></header>
         <div class="container">
             <!-- 절약 위키 화면 구현 -->
@@ -26,31 +26,27 @@
                         <button type="submit">등록</button>
                     </fieldset>
                 </form>
-                <br />
                 <div id="wiki-content"><p id="wikiDate">날짜 넣을거야</p></div>
                 <br />
             </div>
             <!--왼쪽 오른쪽 구분 선 -->
             <div class="divider"></div>
             <div class="right">
-                <fieldset>
-                    <legend>채팅 내용</legend>
-                    <div id="chat-list" style="overflow-y: scroll; height: 300px">
-                        <% chats.forEach(function(chat) { %> <% if (chat.user === user) { %>
-                        <div class="mine" style="color: <%=chat.user%>">
-                            <div><%= chat.chat %></div>
-                        </div>
-                        <% } else { %>
-                        <div class="other" style="color: <%=chat.user%>">
-                            <div><%= chat.chat %></div>
-                        </div>
-                        <% } %> <% }); %>
-                        <ul id="messages"></ul>
+                <h2 class="title">절약 채팅</h2>
+                <div id="chat-list" style="overflow-y: scroll; height: 300px">
+                    <% chats.forEach(function(chat) { %> <% if (chat.user ===color) { %>
+                    <div class="mine" style="color: <%=chat.user%>">
+                        <div><%= chat.chat %></div>
                     </div>
-                </fieldset>
-                <form id="chat-form">
-                    <label for="chat">채팅 메시지</label>
+                    <% } else { %>
+                    <div class="other" style="color: <%=chat.user%>">
+                        <div><%= chat.chat %></div>
+                    </div>
+                    <% } %> <% }); %>
+                    <ul id="messages"></ul>
+                </div>
 
+                <form id="chat-form">
                     <form action="">
                         <input id="m" autocomplete="off" />
                         <button>보내기</button>
