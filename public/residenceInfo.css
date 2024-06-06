@@ -281,6 +281,12 @@ p {
     justify-content: center;
 } */
 
+#map-title {
+    margin-bottom: 10px;
+}
+#map-subtitle {
+    color: #19a337;
+}
 .form_1.data_info {
     text-align: center; /* 가로 방향 가운데 정렬 */
 }
