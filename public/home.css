@@ -40,6 +40,14 @@ body {
     transition: 0.5s ease;
 }
 
+#registerTitle {
+    margin-top: 30px;
+}
+
+#registerButton {
+    margin-top: 30px;
+}
+
 .tiles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
