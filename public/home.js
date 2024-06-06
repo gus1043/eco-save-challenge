@@ -217,7 +217,7 @@ async function getPercent() {
 
         console.log(res.data);
         if (res.data !== null) {
-            drawChart(res.data.savingLastMonth, res.data.ageaveragebills, res.data.averageBill);
+            drawChart(res.data.savingsLastMonth, res.data.ageaveragebills, res.data.averageBill);
             document.getElementById('heading').textContent = `${res.data.date}월 챌린지`;
 
             const mybill = res.data.mybill; // mybill 값을 데이터에서 가져옵니다.
@@ -226,9 +226,10 @@ async function getPercent() {
             document.getElementById('use').src = `https://em-content.zobj.net/source/microsoft-teams/363/${image}`;
             document.getElementById('how').innerHTML = `${info}만큼<br>전기를 사용했어요`;
 
-            if (res.data.savingLastMonth) {
+            console.log('차트 아낀', res.data.savingsLastMonth);
+            if (res.data.savingsLastMonth !== null) {
                 document.getElementById(
-                    'percent'
+                    'saving'
                 ).innerHTML = `지난달보다<br>${res.data.savingsLastMonth}원 더 아꼈어요`;
                 document.getElementById(
                     'percent'

@@ -98,18 +98,23 @@ router.get('/mychallenge', async (req, res, next) => {
         });
 
         console.log('나이대인포:', ageInfo);
+        console.log('지난달', seconduserInfo);
+
+        console.log('이번달', latestuserInfo[0].dataValues.bill);
+        console.log('지난달', seconduserInfo.bill);
 
         let difference = null; // 변수를 먼저 선언하고 null로 초기화
 
         //지난달보다 아낀 수
-        if (latestuserInfo.length === 2) {
+        if (seconduserInfo.bill !== null) {
             const latestBill = latestuserInfo[0].dataValues.bill;
-            const previousBill = seconduserInfo.bill;
-            difference = latestBill - previousBill;
+            const previousBill = seconduserInfo.dataValues.bill;
+            difference = previousBill - latestBill;
             console.log('지난 달보다 아낀 정도:', difference);
         } else {
             difference = null;
         }
+        console.log('아낀 정도', difference);
 
         // 상위 퍼센트 불러오기
         // 동네 상위 몇퍼센트?
