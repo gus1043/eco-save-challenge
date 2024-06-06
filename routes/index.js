@@ -9,7 +9,7 @@ const router = express.Router();
 //메인페이지
 router.get('/', async (req, res, next) => {
     try {
-        let bill = null;
+        let formattedBill = null;
         let userInfo = null;
         let current = false;
 
@@ -20,10 +20,12 @@ router.get('/', async (req, res, next) => {
                 order: [['date', 'DESC']],
                 limit: 1,
             });
+
             // 등록된 bill
             if (userInfo && userInfo.bill !== null) {
                 // userInfo가 null이 아니고 bill이 null이 아닌 경우
-                bill = userInfo.bill;
+                const bill = userInfo.bill;
+                formattedBill = bill.toLocaleString();
 
                 // 현재 날짜 구하기
                 const now = new Date();
@@ -39,7 +41,7 @@ router.get('/', async (req, res, next) => {
         console.log(req.user);
         console.log(userInfo);
 
-        res.render('home', { title: '홈', user: req.user, bill: bill, current: current });
+        res.render('home', { title: '홈', user: req.user, bill: formattedBill, current: current });
     } catch (err) {
         console.error(err);
         next(err);

@@ -167,6 +167,9 @@ body {
     margin-top: 5px;
     margin-bottom: 0px;
 }
+#report-title {
+    margin-bottom: 0px;
+}
 
 .modal {
     display: none; /* 기본적으로 숨김 */
@@ -240,6 +243,7 @@ body {
     padding: 0.5rem;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     justify-content: center; /* 가로 방향 중앙 정렬 */
     align-items: center; /* 세로 방향 중앙 정렬 */
 }
@@ -275,4 +279,35 @@ body {
 
 .mybill button:hover {
     background-color: rgb(217, 255, 214);
+}
+
+/* 추가 요금 등록 css */
+.custom-input-container input {
+    width: 350px; /* 입력란과 버튼의 너비를 동일하게 설정 */
+    max-width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-input-container select {
+    width: 170px;
+    max-width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    font-size: 16px;
+    outline: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+}
+
+.custom-input-container input:focus,
+.custom-input-container select:focus {
+    border-color: #19a337;
 }

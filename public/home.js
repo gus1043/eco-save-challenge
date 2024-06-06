@@ -33,7 +33,7 @@ function formatNumber(input) {
     }
 }
 
-// 등록
+// 첫 요금 등록
 document.addEventListener('DOMContentLoaded', function () {
     const registerButton = document.getElementById('registerButton');
     if (registerButton) {
@@ -88,6 +88,102 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                 }
             });
+        });
+    }
+});
+
+// 추가로 이전 요금 등록
+document.addEventListener('DOMContentLoaded', function () {
+    const registerButton = document.getElementById('addBillButton');
+    if (registerButton) {
+        registerButton.addEventListener('click', function () {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonthIndex = currentDate.getMonth() + 1;
+            const formattedMonth = currentMonthIndex < 10 ? '0' + currentMonthIndex : currentMonthIndex;
+            const formattedDate = `${currentYear}-${formattedMonth}`;
+            Swal.fire({
+                title: '이전 요금 등록',
+                imageUrl:
+                    'https://em-content.zobj.net/source/microsoft-teams/363/raising-hands_light-skin-tone_1f64c-1f3fb_1f3fb.png',
+                imageWidth: 100,
+                imageHeight: 100,
+                imageAlt: 'Custom image',
+                html: `
+                    <div class="custom-input-container">
+                        <select id="yearSelect">
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
+                        <select id="monthSelect">
+                            <option value="1">1월</option>
+                            <option value="2">2월</option>
+                            <option value="3">3월</option>
+                            <option value="4">4월</option>
+                            <option value="5">5월</option>
+                            <option value="6">6월</option>
+                            <option value="7">7월</option>
+                            <option value="8">8월</option>
+                            <option value="9">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                    </div>
+                    <div class="custom-input-container">
+                        <input type="text" id="numberInput" placeholder="숫자만 입력">
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#19A337',
+                confirmButtonText: '예',
+                cancelButtonText: '아니요',
+                didOpen: () => {
+                    const numberInput = document.getElementById('numberInput');
+                    numberInput.addEventListener('input', function (e) {
+                        formatNumber(e.target);
+                    });
+                },
+                preConfirm: () => {
+                    const yearSelect = document.getElementById('yearSelect').value;
+                    const monthSelect = document.getElementById('monthSelect').value;
+                    const numberInput = document.getElementById('numberInput').value;
+                    if (!numberInput) {
+                        Swal.showValidationMessage('입력을 완료해주세요!');
+                        return false;
+                    }
+                    return {
+                        year: yearSelect,
+                        month: monthSelect,
+                        bill: numberInput,
+                    };
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const billAmount = result.value.bill.replace(/,/g, '');
+                    const formattedDate = `${result.value.year}-${String(result.value.month).padStart(2, '0')}`;
+                    axios
+                        .post('/users/billpost', { bill: billAmount, date: formattedDate })
+                        .then((response) => {
+                            if (response.status === 201) {
+                                Swal.fire('등록 완료!', '요금이 성공적으로 등록되었습니다.', 'success');
+                                window.location.reload();
+                            }
+                        })
+                        .catch((error) => {
+                            Swal.fire('오류', '요금 등록에 실패했습니다.', 'error');
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // 취소 버튼이 눌렸을 때의 처리
+                }
+            });
+
+            function formatNumber(input) {
+                let value = input.value.replace(/,/g, '');
+                value = Number(value).toLocaleString();
+                input.value = value;
+            }
         });
     }
 });
