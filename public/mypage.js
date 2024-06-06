@@ -217,7 +217,10 @@ document.getElementById('logout').addEventListener('click', async () => {
 document.getElementById('delete').addEventListener('click', async () => {
     try {
         const result = await Swal.fire({
-            icon: 'success',
+            imageUrl: 'https://em-content.zobj.net/source/microsoft-teams/363/loudly-crying-face_1f62d.png',
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Custom image',
             title: '탈퇴 알림!',
             text: '정말로 탈퇴하시겠습니까?',
             confirmButtonColor: '#19A337',
