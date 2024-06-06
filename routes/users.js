@@ -43,12 +43,15 @@ router
 
             // 이메일 중복 검사
             const existingUser = await User.findOne({ where: { email: email } });
-            if (existingUser.provider == 'kakao') {
-                return res.status(409).json({ error: '카카오 계정으로 가입된 계정이 있습니다.' });
-            } else if (existingUser) {
-                // 같은 이메일을 가진 사용자가 이미 존재하는 경우
-                return res.status(409).json({ error: '이미 있는 계정입니다.' });
+            if (existingUser) {
+                if (existingUser.provider == 'kakao') {
+                    return res.status(409).json({ error: '카카오 계정으로 가입된 계정이 있습니다.' });
+                } else {
+                    // 같은 이메일을 가진 사용자가 이미 존재하는 경우
+                    return res.status(409).json({ error: '이미 있는 계정입니다.' });
+                }
             }
+
             console.info('___User.create(): ' + name);
             const hash = await bcrypt.hash(password, 12);
             const user = await User.create({
