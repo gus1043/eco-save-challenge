@@ -140,9 +140,11 @@ document.getElementById('editProfile').addEventListener('click', async (e) => {
     const electApplication = document.getElementById('elect_application').value;
     const age = document.getElementById('age').value;
 
+    console.log('수정', address, houseStructure, numMember, electApplication, age);
+
     // 수정된 내용을 서버에 전송
     try {
-        await axios.put('/users/mypage/profile', {
+        await axios.put('/users/profile', {
             address,
             houseStructure,
             numMember,
