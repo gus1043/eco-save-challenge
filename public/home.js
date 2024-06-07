@@ -235,7 +235,7 @@ async function getPercent() {
                     'percent'
                 ).innerHTML = `이번달 전기요금은<br> ${res.data.age} 대 중 상위 ${res.data.agePercentRank}%, 전체상위 ${res.data.countryPercentRank}%입니다`;
             } else {
-                document.getElementById('saving').textContent = `이번달이 첫 시작일이에요!`;
+                document.getElementById('saving').textContent = `직전 달 요금이 등록되지 않았어요!`;
                 document.getElementById('percent').textContent = `이번달이 첫 시작일이에요!`;
             }
         } else {
