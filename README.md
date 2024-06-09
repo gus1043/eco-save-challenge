@@ -4,8 +4,7 @@
 [최종 슬라이드 보러가기](https://drive.google.com/file/d/1TYMBJNr3qPjHM04qq6kNTtDgrGiaHi2K/view?usp=sharing)  
 <br/>    
 
-![슬라이드19](![image](https://github.com/gus1043/eco-save-challenge/assets/80878955/ff44b802-8b54-428b-9d48-b8eadc77d552)
-)
+![EcoSave의 사본](https://github.com/gus1043/eco-save-challenge/assets/80878955/4cc0173f-ea19-4e46-9efb-b54071186368)
 ![슬라이드6](https://github.com/gus1043/eco-save-challenge/assets/80878955/798c64c9-a9d3-49e0-ac30-e1b3db13e4da)
 ![슬라이드18](https://github.com/gus1043/eco-save-challenge/assets/80878955/07c47054-d950-4843-a33c-793300d2fbad)
 
