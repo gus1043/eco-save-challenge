@@ -3,6 +3,8 @@ const Wiki = require('../models/wiki');
 const Chat = require('../models/chat');
 
 const router = express.Router();
+
+// 채팅 내용 가져오고 새로 저장하기
 router
     .route('/')
     .get(async (req, res, next) => {
@@ -32,6 +34,7 @@ router
         }
     });
 
+// 위키 내용 가져오고 새로 만들기
 router
     .route('/wikis')
     .get(async (req, res, next) => {

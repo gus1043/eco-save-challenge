@@ -4,9 +4,9 @@ const Residence_info = require('../models/residence_info');
 
 const router = express.Router();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-// Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_KEY);
 
+// aireport 라우터 (GET:이미있는 정보 보내기 / POST: 새로 AI리포트 만들기)
 router
     .route('/')
     .get(async (req, res, next) => {

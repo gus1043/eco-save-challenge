@@ -2,6 +2,8 @@ const express = require('express');
 const Quiz = require('../models/quiz');
 
 const router = express.Router();
+
+// 퀴즈 내용 가져오기
 router.route('/').get(async (req, res, next) => {
     try {
         // 전체 데이터를 가져오기

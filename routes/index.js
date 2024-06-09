@@ -48,6 +48,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+// 유저의 지난 달에 대한 절약 관련 내용
 router.get('/mychallenge', async (req, res, next) => {
     try {
         //유저 정보 가져오기

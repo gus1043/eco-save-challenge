@@ -6,6 +6,7 @@ const router = express.Router();
 const OPEN_API_KEY = process.env.OPEN_API_KEY;
 const endpoint = 'https://bigdata.kepco.co.kr/openapi/v1/powerUsage/contractType.do';
 
+// 전국 챌린지 한전 API 가져오기
 router
     .route('/')
     .get(async (req, res, next) => {
