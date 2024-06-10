@@ -24,4 +24,4 @@
 
 ## Demo
 [Click to watch Demo video](https://youtu.be/zW_png1YB1s)  
-[![Video Label](http://img.youtube.com/vi/zW_png1YB1s/0.jpg)](https://youtu.be/zW_png1YB1s)
+[![Video Label](https://github.com/gus1043/eco-save-challenge/assets/80878955/ae75dfbc-36b0-466e-980d-7bf45e923cc6)](https://youtu.be/zW_png1YB1s)
