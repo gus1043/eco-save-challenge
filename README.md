@@ -1,10 +1,10 @@
 # EcoSave : 전기 절약 챌린지
 24-1 명지대학교 고급웹프로그래밍 기말프로젝트
 
-[최종 슬라이드 보러가기](https://drive.google.com/file/d/1ogPV1Fa8cVBFlmEmXHP2VOsz-1oLoDyC/view?usp=sharing)  
+[최종 슬라이드 보러가기](https://drive.google.com/file/d/1xWmAFAkFg8HukJuUH7OY_yLVg2WifWTv/view?usp=sharing)  
 <br/>    
 
-![슬라이드19](https://github.com/gus1043/eco-save-challenge/assets/80878955/f92e77a2-07e7-4f01-b4db-2078320a739c)
+![EcoSave의 사본](https://github.com/gus1043/eco-save-challenge/assets/80878955/4cc0173f-ea19-4e46-9efb-b54071186368)
 ![슬라이드6](https://github.com/gus1043/eco-save-challenge/assets/80878955/798c64c9-a9d3-49e0-ac30-e1b3db13e4da)
 ![슬라이드18](https://github.com/gus1043/eco-save-challenge/assets/80878955/07c47054-d950-4843-a33c-793300d2fbad)
 
