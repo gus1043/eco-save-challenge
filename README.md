@@ -24,3 +24,4 @@
 
 ## Demo
 [Click to watch Demo video](https://youtu.be/zW_png1YB1s)  
+[![Video Label](http://img.youtube.com/vi/zW_png1YB1s/0.jpg)](https://youtu.be/zW_png1YB1s)
