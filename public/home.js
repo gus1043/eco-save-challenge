@@ -217,7 +217,7 @@ async function getPercent() {
 
         console.log(res.data);
         if (res.data !== null) {
-            drawChart(res.data.savingsLastMonth, res.data.ageaveragebills, res.data.averageBill);
+            drawChart(res.data.mybill, res.data.ageaveragebills, res.data.averageBill);
             document.getElementById('heading').textContent = `${res.data.date}월 챌린지`;
 
             const mybill = res.data.mybill; // mybill 값을 데이터에서 가져옵니다.
@@ -237,6 +237,13 @@ async function getPercent() {
             } else {
                 document.getElementById('saving').textContent = `직전 달 요금이 등록되지 않았어요!`;
                 document.getElementById('percent').textContent = `이번달이 첫 시작일이에요!`;
+            }
+            if (res.data.mybill !== null) {
+                document.getElementById(
+                    'percent'
+                ).innerHTML = `이번달 전기요금은<br> ${res.data.age} 대 중 상위 ${res.data.agePercentRank}%, 전체상위 ${res.data.countryPercentRank}%입니다`;
+            } else {
+                document.getElementById('saving').textContent = `요금이 등록되지 않았어요!`;
             }
         } else {
             displayCurrentMonth();

@@ -48,10 +48,9 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-// 유저의 지난 달에 대한 절약 관련 내용
 router.get('/mychallenge', async (req, res, next) => {
     try {
-        //유저 정보 가져오기
+        // 유저 정보 가져오기
         const seconduserInfo = await User_info.findOne({
             where: { user: req.user.email },
             order: [['date', 'DESC']],
@@ -102,7 +101,7 @@ router.get('/mychallenge', async (req, res, next) => {
 
         let difference = null; // 변수를 먼저 선언하고 null로 초기화
 
-        //지난달보다 아낀 수
+        // 지난달보다 아낀 수
         if (seconduserInfo) {
             const latestBill = latestuserInfo[0].dataValues.bill;
             const previousBill = seconduserInfo.dataValues.bill;
@@ -114,22 +113,25 @@ router.get('/mychallenge', async (req, res, next) => {
         console.log('아낀 정도', difference);
 
         // 상위 퍼센트 불러오기
-        // 동네 상위 몇퍼센트?
+        // 동네 상위 몇 퍼센트?
         const bills = countryInfo.map((info) => info.bill);
         const sortedBills = bills.sort((a, b) => a - b);
-        const percentRank = ((sortedBills.indexOf(latestuserInfo[0].dataValues.bill) + 1) / sortedBills.length) * 100;
+        const percentRank =
+            ((sortedBills.length - sortedBills.indexOf(latestuserInfo[0].dataValues.bill)) / sortedBills.length) * 100;
         console.log('동네 상위:', percentRank);
         const averageBill = bills.reduce((total, bill) => total + bill, 0) / bills.length;
         console.log('bill 값의 평균:', averageBill);
 
-        // 나이대 상위 몇퍼센트?
+        // 나이대 상위 몇 퍼센트?
         const agebills = ageInfo.map((info) => info.bill);
         const sortedageBills = agebills.sort((a, b) => a - b);
         const agepercentRank =
-            ((sortedageBills.indexOf(latestuserInfo[0].dataValues.bill) + 1) / sortedageBills.length) * 100;
-        console.log('나이대 상위 몇퍼센트: ', agepercentRank);
-        const ageaveragebills = bills.reduce((total, bill) => total + bill, 0) / bills.length;
-        console.log('bill 값의 평균:', ageaveragebills);
+            ((sortedageBills.length - sortedageBills.indexOf(latestuserInfo[0].dataValues.bill)) /
+                sortedageBills.length) *
+            100;
+        console.log('나이대 상위 몇 퍼센트:', agepercentRank);
+        const ageaveragebills = agebills.reduce((total, bill) => total + bill, 0) / agebills.length;
+        console.log('나이대 bill 값의 평균:', ageaveragebills);
 
         // 결과를 JSON으로 응답
         res.json({
