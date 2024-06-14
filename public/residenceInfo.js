@@ -6,6 +6,7 @@ function setCurrentLocationToSearchBar() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function (position) {
+                console.log('Geolocation success');
                 var geocoder = new google.maps.Geocoder();
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -16,7 +17,7 @@ function setCurrentLocationToSearchBar() {
                             // 검색 창에 주소 설정
                             document.getElementById('addressInput').value = results[0].formatted_address;
                         } else {
-                            console.log('주소를 찾을 수 없습니다. ');
+                            console.log('주소를 찾을 수 없습니다.');
                         }
                     } else {
                         console.log('실패: ' + status);
@@ -33,11 +34,13 @@ function setCurrentLocationToSearchBar() {
 }
 
 // 입력된 주소를 기반으로 지도와 마커를 업데이트하는 함수
-async function updateMapWithAddress(address) {
+function updateMapWithAddress(address) {
+    console.log('updateMapWithAddress 호출됨, 주소:', address);
     // Google Maps Geocoding API로 주소를 검색하여 위치 좌표 가져오기
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: address }, function (results, status) {
         if (status === 'OK') {
+            console.log('Geocode 성공, 위치:', results[0].geometry.location);
             // 검색된 위치 좌표
             var location = results[0].geometry.location;
             // 검색 창에 주소 설정
@@ -68,23 +71,28 @@ async function updateMapWithAddress(address) {
     });
 }
 
-// 버튼 클릭시 updateMapWithAddress 함수 호출
-document.getElementById('searchButton').addEventListener('click', function () {
-    var address = document.getElementById('addressInput').value;
-    updateMapWithAddress(address);
-});
+document.addEventListener('DOMContentLoaded', function () {
+    // 현재 위치를 파악하여 검색 창에 자동으로 채워주는 함수 호출
+    setCurrentLocationToSearchBar();
 
-// 엔터 키를 누르면 updateMapWithAddress 함수 호출
-document.getElementById('addressInput').addEventListener('keypress', function (e) {
-    // 엔터 키의 키 코드 13
-    if (e.keyCode === 13) {
+    document.getElementById('searchButton').addEventListener('click', function () {
         var address = document.getElementById('addressInput').value;
+        console.log('검색 버튼 클릭, 주소:', address);
         updateMapWithAddress(address);
-    }
+    });
+
+    document.getElementById('addressInput').addEventListener('keypress', function (e) {
+        // 엔터 키의 키 코드 13
+        if (e.keyCode === 13) {
+            var address = document.getElementById('addressInput').value;
+            console.log('엔터 키 입력, 주소:', address);
+            updateMapWithAddress(address);
+        }
+    });
 });
 
-//getLocation으로 받은 위경도를 지도로 띄우기
-async function getAddr(lat, lng) {
+// getLocation으로 받은 위경도를 지도로 띄우기
+function getAddr(lat, lng) {
     console.log('위도:', lat, '경도:', lng);
 
     // 구글 객체가 정의되었는지 확인
@@ -106,21 +114,21 @@ async function getAddr(lat, lng) {
     });
 }
 
-//geolocation으로 위 경도 받아오기
+// geolocation으로 위 경도 받아오기
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function (position) {
-                //getAddr(위도, 경도);
+                // getAddr(위도, 경도);
                 getAddr(position.coords.latitude, position.coords.longitude);
             },
             function (error) {
                 console.error(error);
             },
             {
-                enableHighAccuracy: true, //정확한 위치요구
-                maximumAge: 0, //캐시 유효시간
-                timeout: Infinity, //최대 대기 시간
+                enableHighAccuracy: true, // 정확한 위치 요구
+                maximumAge: 0, // 캐시 유효시간
+                timeout: Infinity, // 최대 대기 시간
             }
         );
     } else {

@@ -13,11 +13,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-        <script
-            src="http://maps.google.com/maps/api/js?key=<%= process.env.GOOGLE_MAP_KEY %>&callback=getLocation"
-            async
-            defer
-        ></script>
+        <script src="http://maps.google.com/maps/api/js?key=<%= process.env.GOOGLE_MAP_KEY %>" async defer></script>
     </head>
     <body>
         <div class="wrapper">
@@ -55,8 +51,7 @@
                         <div class="search-container">
                             <div class="pseudo-search">
                                 <input id="addressInput" type="text" placeholder="Search..." autofocus required />
-
-                                <button id="searchButton" class="fa fa-search" type="submit"></button>
+                                <button id="searchButton" class="fa fa-search" type="button"></button>
                             </div>
                         </div>
                         <div id="map"></div>
